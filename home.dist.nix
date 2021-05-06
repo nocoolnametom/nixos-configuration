@@ -70,6 +70,7 @@ in {
     let mapleader = "'"
   '';
   programs.gpg.enable = true;
+  programs.gpg.homedir = "${homeDirectory}/.gnupg";
   programs.password-store.enable = true;
   programs.password-store.package = pkgs.pass.withExtensions
     (exts: [ exts.pass-genphrase exts.pass-update exts.pass-otp ]);
@@ -143,7 +144,7 @@ in {
   programs.zsh.sessionVariables.DIRENV_LOG_FORMAT = "";
   programs.zsh.sessionVariables.NIX_AUTO_RUN =
     "1"; # NixOS Auto-installs a program when called, temporarily
-  programs.zsh.sessionVariables.TERM = "xterm";
+  programs.zsh.sessionVariables.TERM = "xterm-256color";
   programs.zsh.sessionVariables.TERMINFO = "${pkgs.kitty}/lib/kitty/terminfo";
 
   home.file.".zsh_custom/themes/powerlevel9k".source =
