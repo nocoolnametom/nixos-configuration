@@ -1,0 +1,14 @@
+# This is the configuration file for a specific machine.
+# It is NOT under version control.  Use it to activate
+# specific modules or set specific variables but try
+# and keep it as terse as possible.  Anything long-form
+# should be placed within a wrapping service or program
+# config.  There's nothing wrong with placing
+# machine-specific code in those modules and setting a
+# value here to select that specific config: everything
+# relating to that service/program will still be located
+# with everything else that relates to it.
+
+{ pkgs, lib ? pkgs.lib, config, ... }: {
+  networking.hostName = "exampleMachine";
+}

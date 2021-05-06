@@ -1,0 +1,7 @@
+{ ... }:
+
+{
+  imports = [
+    ./password-store-sync
+  ];
+}
