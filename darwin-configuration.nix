@@ -52,13 +52,12 @@ in {
   # Scripts to be run after activating a generation for a user
   system.activationScripts.extraUserActivation.text =
     let home = builtins.getEnv "HOME";
-    in ''
-    '';
+    in "";
 
   # Home Manager
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
-  home-manager.users.tdoggett = import ./home.nix { inherit pkgs config; isModule = true; isDarwin = true; };
+  home-manager.users.tdoggett = import ./home.dist.nix { inherit pkgs config; isModule = true; isDarwin = true; };
 
   # Use a custom configuration.nix location. $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 

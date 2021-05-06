@@ -5,10 +5,13 @@
 { pkgs, lib ? pkgs.lib, config, isModule ? false, isDarwin ? false, ... }:
 
 let
-  homeDirectory = if (lib.hasAttrByPath [ "home" "homeDirectory" ] config) then
-    config.home.homeDirectory
+  homeDirectory = if (isDarwin || !isModule) then
+    (builtins.getEnv "HOME")
   else
-    config.users.users.tdoggett.home;
+    (if (lib.hasAttrByPath [ "home" "homeDirectory" ] config) then
+      config.home.homeDirectory
+    else
+      config.users.users.tdoggett.home);
 in {
   imports = [ ] ++ (lib.optionals (!isModule) [ ./overlays-import.nix ])
     ++ (lib.optionals (!isDarwin) [ ./myServices/linux ./services-home.nix ])
@@ -32,15 +35,17 @@ in {
     pkgs.vimPlugins.vim-trailing-whitespace
     pkgs.vimPlugins.vim-wakatime
   ];
-  programs.vim.settings.ignorecase = true;
-  programs.vim.settings.expandtab = true;
-  programs.vim.settings.hidden = true;
-  programs.vim.settings.mouse = "a";
-  programs.vim.settings.number = true;
-  programs.vim.settings.relativenumber = true;
-  programs.vim.settings.shiftwidth = 2;
-  programs.vim.settings.tabstop = 4;
-  programs.vim.settings.smartcase = true;
+  programs.vim.settings = {
+    ignorecase = true;
+    expandtab = true;
+    hidden = true;
+    mouse = "a";
+    number = true;
+    relativenumber = true;
+    shiftwidth = 2;
+    tabstop = 4;
+    smartcase = true;
+  };
   programs.vim.extraConfig = ''
     set noswapfile
     set hlsearch
@@ -64,28 +69,30 @@ in {
     let g:vim_markdown_folding_disabled = 1
     let mapleader = "'"
   '';
-
   programs.gpg.enable = true;
   programs.password-store.enable = true;
   programs.password-store.package = pkgs.pass.withExtensions
     (exts: [ exts.pass-genphrase exts.pass-update exts.pass-otp ]);
-  programs.password-store.settings.PASSWORD_STORE_DIR =
-    "${homeDirectory}/.password-store";
-
+  programs.password-store.settings = {
+    PASSWORD_STORE_DIR = "${homeDirectory}/.password-store";
+  };
   programs.git.enable = true;
   programs.git.userName = "Tom Doggett";
   programs.git.signing.key = "5279843C73EB8029F9F6AF0EC4252D5677A319CA";
   programs.git.signing.signByDefault = true;
   programs.git.aliases.co = "checkout";
-  programs.git.extraConfig.core.editor = "vim";
-  programs.git.extraConfig.log.decorate = "full";
-  programs.git.extraConfig.rebase.autostash = true;
-  programs.git.extraConfig.pull.rebase = true;
-  programs.git.extraConfig.stash.showPatch = true;
-  programs.git.extraConfig."color \"status\"".added = "green";
-  programs.git.extraConfig."color \"status\"".changed = "yellow bold";
-  programs.git.extraConfig."color \"status\"".untracked = "red bold";
-
+  programs.git.extraConfig = {
+    core.editor = "vim";
+    log.decorate = "full";
+    rebase.autostash = true;
+    pull.rebase = true;
+    stash.showPatch = true;
+    "color \"status\"" = {
+      added = "green";
+      changed = "yellow bold";
+      untracked = "red bold";
+    };
+  };
   programs.browserpass.enable = true;
   programs.browserpass.browsers = [ "firefox" "chrome" ];
 
