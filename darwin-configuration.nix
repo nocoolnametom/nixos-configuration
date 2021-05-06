@@ -9,11 +9,8 @@ let
   else
     (import ./workInfo_example.nix { inherit pkgs lib; });
 in {
-  imports = [
-    <home-manager/nix-darwin>
-    ./overlays-import.nix
-    ./myServices/darwin
-  ];
+  imports =
+    [ <home-manager/nix-darwin> ./overlays-import.nix ./myServices/darwin ];
 
   environment.variables = { EDITOR = "vim"; };
 
@@ -57,7 +54,11 @@ in {
   # Home Manager
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
-  home-manager.users.tdoggett = import ./home.dist.nix { inherit pkgs config; isModule = true; isDarwin = true; };
+  home-manager.users.tdoggett = import ./home.dist.nix {
+    inherit pkgs config;
+    isModule = true;
+    isDarwin = true;
+  };
 
   # Use a custom configuration.nix location. $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 

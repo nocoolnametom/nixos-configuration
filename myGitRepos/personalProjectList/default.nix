@@ -14,7 +14,9 @@
     facebook = [{ repo = "create-react-app"; }];
     LnL7 = [ { repo = "nix-darwin"; } { repo = "nix-docker"; } ];
     nocoolnametom = [
-      { repo = "workProjectList"; } # This enables `work_repos` to know what to clone
+      {
+        repo = "workProjectList";
+      } # This enables `work_repos` to know what to clone
       { repo = "nixos-configuration"; } # This is the current repo
       { repo = "cesletter"; }
       { repo = "cesletterbox"; }
