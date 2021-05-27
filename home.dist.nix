@@ -12,63 +12,19 @@ let
       config.home.homeDirectory
     else
       config.users.users.tdoggett.home);
+  myVim = import ./myVim { inherit pkgs; };
 in {
   imports = [ ] ++ (lib.optionals (!isModule) [ ./overlays-import.nix ])
     ++ (lib.optionals (!isDarwin) [ ./myServices/linux ./services-home.nix ])
     ++ (lib.optionals (lib.pathExists ./home.nix) [ ./home.nix ]);
 
-  programs.vim.enable = true;
-  programs.vim.plugins = [
-    pkgs.vimPlugins.airline
-    pkgs.vimPlugins.gitgutter
-    pkgs.vimPlugins.molokai
-    pkgs.vimPlugins.nerdtree
-    pkgs.vimPlugins.typescript-vim
-    pkgs.vimPlugins.vim-airline-themes
-    pkgs.vimPlugins.vim-commentary
-    pkgs.vimPlugins.vim-javascript
-    pkgs.vimPlugins.vim-markdown
-    pkgs.vimPlugins.vim-misc
-    pkgs.vimPlugins.vim-nix
-    pkgs.vimPlugins.vim-startify
-    pkgs.vimPlugins.vim-toml
-    pkgs.vimPlugins.vim-trailing-whitespace
-    pkgs.vimPlugins.vim-wakatime
-  ];
-  programs.vim.settings = {
-    ignorecase = true;
-    expandtab = true;
-    hidden = true;
-    mouse = "a";
-    number = true;
-    relativenumber = true;
-    shiftwidth = 2;
-    tabstop = 4;
-    smartcase = true;
+  programs.vim = {
+    inherit (myVim) plugins settings extraConfig;
   };
-  programs.vim.extraConfig = ''
-    set noswapfile
-    set hlsearch
-    set incsearch
-    filetype plugin indent on
-    syntax enable
-    set softtabstop=0 smarttab
-    set termguicolors
-    colorscheme molokai
-    colorscheme molokai
-    set splitbelow
-    set splitright
-    set backspace=indent,eol,start
-    :imap jj <Esc>
-    autocmd InsertEnter * :set norelativenumber
-    autocmd InsertLeave * :set relativenumber
-    :nmap <C-s> :w<CR>
-    :imap <C-s> <Esc>:w<CR>a
-    set foldlevelstart=99 "all folds opened at start
-    set foldmethod=syntax "syntax highlighting items specify folds
-    let g:vim_markdown_folding_disabled = 1
-    let mapleader = "'"
-  '';
+  programs.vim.enable = true;
+
+  home.file.".vim/coc-settings.json".text = myVim.cocSettingsFile;
+
   programs.gpg.enable = true;
   programs.gpg.homedir = "${homeDirectory}/.gnupg";
   programs.password-store.enable = true;
