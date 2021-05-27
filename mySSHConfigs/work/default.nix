@@ -153,7 +153,7 @@
       "zg02911vm.local"
       "ZG02911VM.local"
     ];
-    hostname = "192.168.86.66";
+    hostname = "192.168.86.55";
     identityFile = workRsa;
     user = "tdoggett";
   };
