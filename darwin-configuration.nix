@@ -33,6 +33,7 @@ in {
     pkgs.myGitRepos.zgitclone
     pkgs.myGitRepos.work_repos
     pkgs.silver-searcher
+    pkgs.tmux
   ];
   environment.variables = {
     HOME = "/Users/tdoggett";

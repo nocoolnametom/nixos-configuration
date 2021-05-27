@@ -159,6 +159,7 @@ in {
     direnv
     silver-searcher
     nodejs-14_x
+    tmux
   ];
 
   # programs.mtr.enable = true;
