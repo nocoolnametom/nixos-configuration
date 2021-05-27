@@ -158,7 +158,7 @@ in {
     curl
     direnv
     silver-searcher
-    nodejs-12_x
+    nodejs-14_x
   ];
 
   # programs.mtr.enable = true;
