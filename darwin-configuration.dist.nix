@@ -10,7 +10,9 @@ let
     (import ./workInfo_example.nix { inherit pkgs lib; });
 in {
   imports =
-    [ <home-manager/nix-darwin> ./overlays-import.nix ./myServices/darwin ];
+    [ <home-manager/nix-darwin> ./overlays-import.nix ./myServices/darwin ]
+    ++ (lib.optionals (lib.pathExists ./configuration.nix)
+      [ ./configuration.nix ]);
 
   environment.variables = { EDITOR = "vim"; };
 
@@ -21,7 +23,11 @@ in {
     fi
   '';
 
-  nixpkgs.overlays = import ./overlays.nix;
+  nixpkgs.overlays = import ./overlays.nix ++ [
+    (self: super: {
+      hostName = config.networking.hostName;
+    })
+  ];
 
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
   environment.systemPackages = [
@@ -57,6 +63,7 @@ in {
   home-manager.useGlobalPkgs = true;
   home-manager.users.tdoggett = import ./home.dist.nix {
     inherit pkgs config;
+    hostName = lib.toLower config.networking.hostName;
     isModule = true;
     isDarwin = true;
   };
@@ -70,6 +77,9 @@ in {
   system.defaults.dock.showhidden = true;
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
+
+  # Computer Host Name
+  networking.hostName = "ZG02911";
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

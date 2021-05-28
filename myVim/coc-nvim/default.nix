@@ -6,11 +6,12 @@
 # :CocInfo
 # ```
 #
-# Also, install the Coc-PHPLS extension manually instead of using the package:
+# Also, check all of the known extensions for CoC:
 #
 # ```
-# :CocInstall coc-phpls
+# :CocList extensions
 # ```
+
 {
   plugins = with pkgs.vimPlugins; with (import ../plugins/cocPlugins { inherit pkgs; }); [
 

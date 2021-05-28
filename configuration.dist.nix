@@ -13,6 +13,11 @@ let
   else
     (import ./workInfo_example.nix { inherit pkgs lib; });
 in {
+  nixpkgs.overlays = [
+    (self: super: {
+      hostName = config.networking.hostName;
+    })
+  ];
   imports = [
     # Include the results of the hardware scan. Absolute so we can symlink the main congfiguration file to `/etc/nixos`
     /etc/nixos/hardware-configuration.nix
@@ -254,6 +259,7 @@ in {
   home-manager.useGlobalPkgs = true;
   home-manager.users.tdoggett = import ./home.dist.nix {
     inherit pkgs config;
+    hostName = lib.toLower config.networking.hostName;
     isModule = true;
     isDarwin = false;
   };

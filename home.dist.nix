@@ -2,7 +2,10 @@
 # not then remember to symlink this into the expected location!
 # `ln -s <absolute path to this file> ~/.nixpkgs/home.nix
 
-{ pkgs, lib ? pkgs.lib, config, isModule ? false, isDarwin ? false, ... }:
+{ pkgs, config, lib ? pkgs.lib, hostName ? if lib.hasAttrByPath [ "hostName" ] pkgs then
+  (lib.toLower pkgs.hostName)
+else
+  "nixos-machine", isModule ? false, isDarwin ? false, ... }:
 
 let
   homeDirectory = if (isDarwin || !isModule) then
@@ -18,10 +21,10 @@ in {
     ++ (lib.optionals (!isDarwin) [ ./myServices/linux ./services-home.nix ])
     ++ (lib.optionals (lib.pathExists ./home.nix) [ ./home.nix ]);
 
-  programs.vim = {
-    inherit (myVim) plugins settings extraConfig;
-  };
+  programs.vim = { inherit (myVim) plugins settings extraConfig; };
   programs.vim.enable = true;
+
+  home.file.".hostname".text = hostName;
 
   home.file.".vim/coc-settings.json".text = myVim.cocSettingsFile;
   home.file."intelephense/licence.txt".text = pkgs.workInfo.intelephenseKey;

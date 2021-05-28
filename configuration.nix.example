@@ -8,6 +8,9 @@
 # value here to select that specific config: everything
 # relating to that service/program will still be located
 # with everything else that relates to it.
+#
+# Remember both NixOS _and_ Darwin will use this file!
+# Keep it sparse!
 
 { pkgs, lib ? pkgs.lib, config, ... }: {
   networking.hostName = "exampleMachine";
