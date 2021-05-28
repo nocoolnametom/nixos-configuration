@@ -1,19 +1,30 @@
 { pkgs, lib ? pkgs.lib, ... }:
 
-let cocNvim = import ./coc-nvim { inherit pkgs; };
+let
+  cocNvim = import ./coc-nvim { inherit pkgs; };
+  php-foldexpr = import ./plugins/php-foldexpr { inherit pkgs; };
+  php-vim = import ./plugins/php-vim { inherit pkgs; };
+  vim-php-cs-fixer = import ./plugins/vim-php-cs-fixer { inherit pkgs; };
 in rec {
   inherit (cocNvim) cocSettingsFile;
 
   plugins = [
     pkgs.vimPlugins.airline
+    pkgs.vimPlugins.ctrlp
+    pkgs.vimPlugins.ctrlp-z
+    pkgs.vimPlugins.fugitive
     pkgs.vimPlugins.gitgutter
     pkgs.vimPlugins.molokai
     pkgs.vimPlugins.nerdtree
+    pkgs.vimPlugins.nerdtree-git-plugin
+    pkgs.vimPlugins.neomake
     pkgs.vimPlugins.nord-vim
     pkgs.vimPlugins.typescript-vim
     pkgs.vimPlugins.vim-airline-themes
     pkgs.vimPlugins.vim-commentary
+    pkgs.vimPlugins.vim-eunuch
     pkgs.vimPlugins.vim-javascript
+    pkgs.vimPlugins.vim-jsx-pretty
     pkgs.vimPlugins.vim-markdown
     pkgs.vimPlugins.vim-misc
     pkgs.vimPlugins.vim-nix
@@ -21,11 +32,15 @@ in rec {
     pkgs.vimPlugins.vim-toml
     pkgs.vimPlugins.vim-trailing-whitespace
     pkgs.vimPlugins.vim-wakatime
-  ];
+    php-foldexpr
+    php-vim
+    vim-php-cs-fixer
+  ] ++ cocNvim.plugins;
 
   # These are the Home-Manager settings and config
   settings = {
-    hidden = true;
+    # hidden = true;
+    hidden = false;
     mouse = "a";
     ignorecase = true;
     expandtab = true;

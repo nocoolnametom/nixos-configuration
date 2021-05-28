@@ -1,6 +1,76 @@
 { pkgs, ... }:
 
+# In vim, check the health of the COC server by entering, the command:
+#
+# ```
+# :CocInfo
+# ```
+#
+# Also, install the Coc-PHPLS extension manually instead of using the package:
+#
+# ```
+# :CocInstall coc-phpls
+# ```
 {
+  plugins = with pkgs.vimPlugins; with (import ../plugins/cocPlugins { inherit pkgs; }); [
+
+    # PHP Intelephense plugin - This is a custom plugin; remember to put the license code in ~/intelephense/licence.txt
+    coc-intelephense
+
+    # Syntax, linting, and autosuggest
+    coc-css
+
+    # Show suggestions for Emmet HTML expansions
+    coc-emmet
+
+    # Show eslinting warnings and errors
+    coc-eslint
+
+    # Golang plugin
+    coc-go
+
+    # Show color hexes with matching color highlighting
+    coc-highlight
+
+    # HTML syntax, linting, and autosuggest
+    coc-html
+
+    # JSON syntax, linting, and autosuggest
+    coc-json
+
+    # Additional lists like recently used files
+    coc-lists
+
+    # Communication server between VSCode-style code engine and vim
+    coc-nvim
+
+    # Hightlight matching bracket pairs
+    coc-pairs
+
+    # Autoformat on save
+    coc-prettier
+
+    # Python plugin (kinda buggy)
+    coc-python
+
+    # Rust plugin
+    coc-rls
+
+    # Snippets expansion
+    coc-snippets
+
+    # TSLint syntax and linting on TS/TSX files
+    coc-tslint-plugin
+
+    # TypeScript server
+    coc-tsserver
+
+    # TeX syntax, linting, and autosuggest
+    coc-vimtex
+
+    # Yaml syntax, linting, and autosuggest
+    coc-yaml
+  ];
   extraConfig = [
     # if hidden is not set, TextEdit might fail.
     "set hidden"
@@ -60,7 +130,7 @@
     "nmap <silent> gr <Plug>(coc-references)"
 
     # Prevent "$" from being part of autocompletes on PHP files
-    # autocmd FileType php set iskeyword+=$zzs
+    # "autocmd FileType php set iskeyword+=$zzs"
 
     # Use K for show documentation in preview window
     "nnoremap <silent> K :call <SID>show_documentation()<CR>"

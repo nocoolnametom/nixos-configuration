@@ -71,6 +71,9 @@ in {
     myGitRepos.personalgitclone
     myGitRepos.personal_repos
     myPkgs.workVpn
+    myPkgs.intelephense
+    myPkgs.bash-language-server
+    ctags
   ];
 
   programs.zsh.enable = true;
