@@ -11,7 +11,8 @@ link:
 	[[ -e ~/.nixpkgs/darwin-configuration.nix && ! -L ~/.nixpkgs/darwin-configuration.nix ]] && \
 	   mv ~/.nixpkgs/darwin-configuration.nix ~/.nixpkgs/darwin-configuration.nix.bak || exit 0;
 	mkdir -p ~/.nixpkgs;
-	[[ ! -e ~/.nixpkgs/darwin-configuration.nix ]] && ln -s `readlink -f darwin-configuration.nix` ~/.nixpkgs/darwin-configuration.nix || \
+	PWD=`pwd`
+	[[ ! -e ~/.nixpkgs/darwin-configuration.nix ]] && ln -s $$PWD/darwin-configuration.dist.nix ~/.nixpkgs/darwin-configuration.nix || \
 		exit 0;
 else
 link:
