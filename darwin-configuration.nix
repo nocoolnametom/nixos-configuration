@@ -34,6 +34,7 @@ in {
     pkgs.myGitRepos.work_repos
     pkgs.silver-searcher
     pkgs.tmux
+    pkgs.nodejs-14_x
   ];
   environment.variables = {
     HOME = "/Users/tdoggett";
