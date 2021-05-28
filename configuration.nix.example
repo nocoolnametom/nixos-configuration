@@ -12,6 +12,13 @@
 # Remember both NixOS _and_ Darwin will use this file!
 # Keep it sparse!
 
-{ pkgs, lib ? pkgs.lib, config, ... }: {
-  networking.hostName = "exampleMachine";
+{ pkgs, lib ? pkgs.lib, config, ... }:
+
+# You should only need to change the hostName here
+let hostName = "exampleMachine";
+
+in {
+  networking.hostName = hostName;
+
+  imports = import ./hostname-imports.nix { inherit pkgs lib hostName; };
 }

@@ -15,7 +15,7 @@ let
 in {
   nixpkgs.overlays = [
     (self: super: {
-      hostName = config.networking.hostName;
+      hostName = lib.toLower config.networking.hostName;
     })
   ];
   imports = [
@@ -203,6 +203,7 @@ in {
 
   # Docker
   virtualisation.docker.enable = true;
+  virtualisation.docker.autoPrune.enable = true;
 
   # Write current configuration files to a derivation that can be read.
   # This is helpful if you are loading a previous generation that is not
@@ -259,7 +260,7 @@ in {
   home-manager.useGlobalPkgs = true;
   home-manager.users.tdoggett = import ./home.dist.nix {
     inherit pkgs config;
-    hostName = lib.toLower config.networking.hostName;
+    hostName = pkgs.hostName;
     isModule = true;
     isDarwin = false;
   };

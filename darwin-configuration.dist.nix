@@ -25,7 +25,7 @@ in {
 
   nixpkgs.overlays = import ./overlays.nix ++ [
     (self: super: {
-      hostName = config.networking.hostName;
+      hostName = lib.toLower config.networking.hostName;
     })
   ];
 
@@ -63,7 +63,7 @@ in {
   home-manager.useGlobalPkgs = true;
   home-manager.users.tdoggett = import ./home.dist.nix {
     inherit pkgs config;
-    hostName = lib.toLower config.networking.hostName;
+    hostName = pkgs.hostName;
     isModule = true;
     isDarwin = true;
   };
@@ -77,9 +77,6 @@ in {
   system.defaults.dock.showhidden = true;
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
-
-  # Computer Host Name
-  networking.hostName = "ZG02911";
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
