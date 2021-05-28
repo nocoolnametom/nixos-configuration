@@ -24,6 +24,7 @@ in {
   programs.vim.enable = true;
 
   home.file.".vim/coc-settings.json".text = myVim.cocSettingsFile;
+  home.file."intelephense/licence.txt".text = pkgs.workInfo.intelephenseKey;
 
   programs.gpg.enable = true;
   programs.gpg.homedir = "${homeDirectory}/.gnupg";

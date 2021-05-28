@@ -24,4 +24,5 @@ rec {
   emailAddress = "${userName}@${orgUrl}";
   oauthClientId = "foo-bar";
   oauthTenantId = "foo-bar";
+  intelephenseKey = "YourKeyHere!";
 }
