@@ -2,6 +2,9 @@
 
 {
   imports = [
-    # ./password-store-sync
+    ./insync
+    ./my-kanshi
+    ./my-mako
+    ./vdirsyncer
   ];
 }
