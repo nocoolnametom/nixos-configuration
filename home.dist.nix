@@ -75,6 +75,7 @@ in {
     myPkgs.intelephense
     myPkgs.bash-language-server
     ctags
+    nodejs-14_x
   ];
 
   programs.zsh.enable = true;

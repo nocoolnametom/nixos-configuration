@@ -158,7 +158,6 @@ in {
     curl
     direnv
     silver-searcher
-    nodejs-14_x
     tmux
   ];
 
