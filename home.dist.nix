@@ -66,18 +66,7 @@ in {
     mysqlAccess = toString ./myKeys/private/mysqlaccess;
   });
 
-  home.packages = with pkgs; [
-    myGitRepos.zg_backup
-    myGitRepos.zgitclone
-    myGitRepos.work_repos
-    myGitRepos.personalgitclone
-    myGitRepos.personal_repos
-    myPkgs.workVpn
-    myPkgs.intelephense
-    myPkgs.bash-language-server
-    ctags
-    nodejs-14_x
-  ];
+  home.packages = import ./myInstalls/homes { inherit pkgs hostName;};
 
   programs.zsh.enable = true;
   programs.zsh.enableAutosuggestions = true;
