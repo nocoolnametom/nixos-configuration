@@ -19,9 +19,12 @@ let
   myVim = import ./myVim { inherit pkgs; };
 in {
   imports = (import ./myHomes { inherit pkgs config hostName; })
-    ++ [ ./myPrograms/allSystems ] ++ (lib.optionals (!isModule) [ ./overlays-import.nix ])
-    ++ (lib.optionals (!isDarwin) [ ./myServices/linux ./services-home.nix ./myPrograms/onlyLinux])
-    ++ (lib.optionals (isDarwin) [ ./myPrograms/onlyDarwin])
+    ++ [ ./myPrograms/allSystems ]
+    ++ (lib.optionals (!isModule) [ ./overlays-import.nix ])
+    ++ (lib.optionals (!isDarwin) [ ./myServices/linux ./myPrograms/onlyLinux ])
+    ++ (lib.optionals (isDarwin) [
+      ./myPrograms/onlyDarwin
+    ]) # Rememer that darwin services are in the system config!
     ++ (lib.optionals (lib.pathExists ./home.nix) [ ./home.nix ]);
 
   programs.vim = { inherit (myVim) plugins settings extraConfig; };

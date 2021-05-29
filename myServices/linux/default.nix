@@ -1,10 +1,5 @@
 { ... }:
 
 {
-  imports = [
-    ./insync
-    ./my-kanshi
-    ./my-mako
-    ./vdirsyncer
-  ];
+  imports = [ ./insync ./my-kanshi ./my-mako ./vdirsyncer ];
 }

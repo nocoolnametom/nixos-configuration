@@ -13,65 +13,66 @@
 # ```
 
 {
-  plugins = with pkgs.vimPlugins; with (import ../plugins/cocPlugins { inherit pkgs; }); [
+  plugins = with pkgs.vimPlugins;
+    with (import ../plugins/cocPlugins { inherit pkgs; }); [
 
-    # PHP Intelephense plugin - This is a custom plugin; remember to put the license code in ~/intelephense/licence.txt
-    coc-intelephense
+      # PHP Intelephense plugin - This is a custom plugin; remember to put the license code in ~/intelephense/licence.txt
+      coc-intelephense
 
-    # Syntax, linting, and autosuggest
-    coc-css
+      # Syntax, linting, and autosuggest
+      coc-css
 
-    # Show suggestions for Emmet HTML expansions
-    coc-emmet
+      # Show suggestions for Emmet HTML expansions
+      coc-emmet
 
-    # Show eslinting warnings and errors
-    coc-eslint
+      # Show eslinting warnings and errors
+      coc-eslint
 
-    # Golang plugin
-    coc-go
+      # Golang plugin
+      coc-go
 
-    # Show color hexes with matching color highlighting
-    coc-highlight
+      # Show color hexes with matching color highlighting
+      coc-highlight
 
-    # HTML syntax, linting, and autosuggest
-    coc-html
+      # HTML syntax, linting, and autosuggest
+      coc-html
 
-    # JSON syntax, linting, and autosuggest
-    coc-json
+      # JSON syntax, linting, and autosuggest
+      coc-json
 
-    # Additional lists like recently used files
-    coc-lists
+      # Additional lists like recently used files
+      coc-lists
 
-    # Communication server between VSCode-style code engine and vim
-    coc-nvim
+      # Communication server between VSCode-style code engine and vim
+      coc-nvim
 
-    # Hightlight matching bracket pairs
-    coc-pairs
+      # Hightlight matching bracket pairs
+      coc-pairs
 
-    # Autoformat on save
-    coc-prettier
+      # Autoformat on save
+      coc-prettier
 
-    # Python plugin (kinda buggy)
-    coc-python
+      # Python plugin (kinda buggy)
+      coc-python
 
-    # Rust plugin
-    coc-rls
+      # Rust plugin
+      coc-rls
 
-    # Snippets expansion
-    coc-snippets
+      # Snippets expansion
+      coc-snippets
 
-    # TSLint syntax and linting on TS/TSX files
-    coc-tslint-plugin
+      # TSLint syntax and linting on TS/TSX files
+      coc-tslint-plugin
 
-    # TypeScript server
-    coc-tsserver
+      # TypeScript server
+      coc-tsserver
 
-    # TeX syntax, linting, and autosuggest
-    coc-vimtex
+      # TeX syntax, linting, and autosuggest
+      coc-vimtex
 
-    # Yaml syntax, linting, and autosuggest
-    coc-yaml
-  ];
+      # Yaml syntax, linting, and autosuggest
+      coc-yaml
+    ];
   extraConfig = [
     # if hidden is not set, TextEdit might fail.
     "set hidden"

@@ -40,13 +40,13 @@
   # Thinkpad fan control
   services.thinkfan.enable = true;
   services.thinkfan.levels = [
-    [0    0   65]
-    [1    50  70]
-    [2    60  71]
-    [3    62  73]
-    [6    66  75]
-    [7    70  85]
-    [127  80  32767]
+    [ 0 0 65 ]
+    [ 1 50 70 ]
+    [ 2 60 71 ]
+    [ 3 62 73 ]
+    [ 6 66 75 ]
+    [ 7 70 85 ]
+    [ 127 80 32767 ]
   ];
 
   # Scale down CPU when not using it to conserve battery life
@@ -68,7 +68,7 @@
     font-name=Cascadia Code
   '';
 
-    # Fonts
+  # Fonts
   fonts.fontDir.enable = true;
   fonts.enableGhostscriptFonts = true;
   fonts.fonts = with pkgs; [
@@ -83,11 +83,7 @@
     useEmbeddedBitmaps = true;
     defaultFonts.serif = [ "Liberation Serif" "Times New Roman" ];
     defaultFonts.sansSerif = [ "Liberation Serif" "Ubuntu" ];
-    defaultFonts.monospace = [
-      "DejaVu Sans Mono"
-      "Fira Code"
-      "Ubuntu Mono"
-    ];
+    defaultFonts.monospace = [ "DejaVu Sans Mono" "Fira Code" "Ubuntu Mono" ];
   };
 
   # Helper program to control display brightness, etc
@@ -111,7 +107,10 @@
   };
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
+  xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-wlr
+    xdg-desktop-portal-gtk
+  ];
   xdg.portal.gtkUsePortal = true;
 
   services.pipewire.enable = true;
@@ -142,7 +141,7 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia.prime = {
     offload.enable = true;
-    sync.enable = true; 
+    sync.enable = true;
     nvidiaBusId = "PCI:1:0:0";
     intelBusId = "PCI:0:2:0";
   };
@@ -150,14 +149,12 @@
   nixpkgs.config.allowUnfree = true;
 
   networking.networkmanager.enable = true;
-  networking.nameservers = [
-    "8.8.8.8"
-    "8.8.4.4"
-  ];
+  networking.nameservers = [ "8.8.8.8" "8.8.4.4" ];
 
-  virtualisation.lxd.enable = false; # Something here is preventing builds when apparmor is enabled..
+  virtualisation.lxd.enable =
+    false; # Something here is preventing builds when apparmor is enabled..
 
-   networking.firewall.allowedTCPPorts = [ 5900 ];
+  networking.firewall.allowedTCPPorts = [ 5900 ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

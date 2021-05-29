@@ -29,11 +29,11 @@ in {
     })
     (mkIf (cfg.enable && pkgs.hostName == "lappy") {
       services.spotifyd.package = pkgs.spotifyd.override {
-          withPulseAudio = true;
-          withMpris = true;
-          libpulseaudio = pkgs.libpulseaudio;
-          dbus = pkgs.dbus;
-        };
+        withPulseAudio = true;
+        withMpris = true;
+        libpulseaudio = pkgs.libpulseaudio;
+        dbus = pkgs.dbus;
+      };
       services.spotifyd.settings.global.backend = "pulseaudio";
     })
   ];
