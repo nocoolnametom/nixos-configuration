@@ -17,14 +17,12 @@ let
       config.users.users.tdoggett.home);
   myVim = import ./myVim { inherit pkgs; };
 in {
-  imports = [ ] ++ (lib.optionals (!isModule) [ ./overlays-import.nix ])
+  imports = (import ./myHomes { inherit pkgs config hostName; }) ++ (lib.optionals (!isModule) [ ./overlays-import.nix ])
     ++ (lib.optionals (!isDarwin) [ ./myServices/linux ./services-home.nix ])
     ++ (lib.optionals (lib.pathExists ./home.nix) [ ./home.nix ]);
 
   programs.vim = { inherit (myVim) plugins settings extraConfig; };
   programs.vim.enable = true;
-
-  home.file.".hostname".text = hostName;
 
   home.file.".vim/coc-settings.json".text = myVim.cocSettingsFile;
   home.file."intelephense/licence.txt".text = pkgs.workInfo.intelephenseKey;

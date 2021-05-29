@@ -153,18 +153,7 @@ in {
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    gnumake
-    wget
-    vim
-    zsh
-    nixfmt
-    awscli
-    curl
-    direnv
-    silver-searcher
-    tmux
-  ];
+  environment.systemPackages = (import ./myInstalls/systems { inherit pkgs; });
 
   # programs.mtr.enable = true;
 

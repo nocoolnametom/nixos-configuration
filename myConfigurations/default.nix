@@ -2,15 +2,14 @@
 
 with lib;
 
-let cfg = config.networking;
-
+let
+  cfg = config.networking;
+  machines = lib.mapAttrsToList (name: v: name)
+    (lib.filterAttrs (name: type: type == "directory") (builtins.readDir ./.));
 in {
-
-  # This loads the machine configuration files based on the declared hostname
-  config = mkMerge [
-    (mkIf ((toLower cfg.hostName) == "zg02911vm")
-      (import ./zg02911vm { inherit config lib pkgs; }))
-    (mkIf ((toLower cfg.hostName) == "lappy")
-      (import ./lappy { inherit config lib pkgs; }))
-  ];
+  config = mkMerge (builtins.map (machine:
+    (mkIf ((toLower cfg.hostName) == machine)
+      (import (./. + builtins.toPath ("/" + machine)) {
+        inherit config lib pkgs;
+      }))) machines);
 }
