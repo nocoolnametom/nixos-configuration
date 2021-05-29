@@ -9,10 +9,16 @@ let
   else
     (import ./workInfo_example.nix { inherit pkgs lib; });
 in {
-  imports =
-    [ <home-manager/nix-darwin> ./overlays-import.nix ./myServices/darwin ]
-    ++ (lib.optionals (lib.pathExists ./configuration.nix)
-      [ ./configuration.nix ]);
+  imports = [
+    "${
+      builtins.fetchGit {
+        url = "https://github.com/nix-community/home-manager.git";
+      }
+    }/nix-darwin"
+    ./overlays-import.nix
+    ./myServices/darwin
+  ] ++ (lib.optionals (lib.pathExists ./configuration.nix)
+    [ ./configuration.nix ]);
 
   environment.variables = { EDITOR = "vim"; };
 
@@ -24,9 +30,7 @@ in {
   '';
 
   nixpkgs.overlays = import ./overlays.nix ++ [
-    (self: super: {
-      hostName = lib.toLower config.networking.hostName;
-    })
+    (self: super: { hostName = lib.toLower config.networking.hostName; })
   ];
 
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget

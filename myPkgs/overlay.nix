@@ -7,7 +7,10 @@
       userName = "tdoggett";
     };
   in rec {
-    inherit (originals) wakatime-zsh-plugin intelephense coc-phpls "@yaegassy/coc-intelephense" bash-language-server;
+    inherit (originals)
+      wakatime-zsh-plugin intelephense coc-phpls bash-language-server
+      khal-events khal-events-json khal-events-plain khal-today;
+    "@yaegassy/coc-intelephense" = originals."@yaegassy/coc-intelephense";
     workVpn = originals.workVpn.override rec {
       username = workInfo.userName;
       passName = "zillow.okta.com/${username}";

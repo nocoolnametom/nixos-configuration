@@ -2,10 +2,11 @@
 # not then remember to symlink this into the expected location!
 # `ln -s <absolute path to this file> ~/.nixpkgs/home.nix
 
-{ pkgs, config, lib ? pkgs.lib, hostName ? if lib.hasAttrByPath [ "hostName" ] pkgs then
-  (lib.toLower pkgs.hostName)
-else
-  "nixos-machine", isModule ? false, isDarwin ? false, ... }:
+{ pkgs, config, lib ? pkgs.lib, hostName ?
+  if lib.hasAttrByPath [ "hostName" ] pkgs then
+    (lib.toLower pkgs.hostName)
+  else
+    "nixos-machine", isModule ? false, isDarwin ? false, ... }:
 
 let
   homeDirectory = if (isDarwin || !isModule) then
@@ -17,7 +18,8 @@ let
       config.users.users.tdoggett.home);
   myVim = import ./myVim { inherit pkgs; };
 in {
-  imports = (import ./myHomes { inherit pkgs config hostName; }) ++ (lib.optionals (!isModule) [ ./overlays-import.nix ])
+  imports = (import ./myHomes { inherit pkgs config hostName; })
+    ++ [ ./myPrograms ] ++ (lib.optionals (!isModule) [ ./overlays-import.nix ])
     ++ (lib.optionals (!isDarwin) [ ./myServices/linux ./services-home.nix ])
     ++ (lib.optionals (lib.pathExists ./home.nix) [ ./home.nix ]);
 
@@ -66,7 +68,7 @@ in {
     mysqlAccess = toString ./myKeys/private/mysqlaccess;
   });
 
-  home.packages = import ./myInstalls/homes { inherit pkgs hostName;};
+  home.packages = import ./myInstalls/homes { inherit pkgs hostName; };
 
   programs.zsh.enable = true;
   programs.zsh.enableAutosuggestions = true;
