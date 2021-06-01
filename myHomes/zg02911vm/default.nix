@@ -1,7 +1,8 @@
 { pkgs, config, lib ? pkgs.lib, ... }: {
   programs.git.userEmail = "tdoggett@zillowgroup.com";
-  programs.my-i3status-rust.enable = true;
   programs.mailcap.enable = true;
+  programs.my-i3status-rust.enable = true;
+  programs.my-tuir.enable = true;
 
   services.lorri.enable = true;
   services.nixos-configuration-sync.enable = true;

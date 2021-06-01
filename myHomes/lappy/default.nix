@@ -16,6 +16,7 @@
   programs.my-neomutt.enable = true;
   programs.my-newsboat.enable = true;
   programs.my-sway.enable = true;
+  programs.my-tuir.enable = true;
   programs.zsh.enable = true;
 
   services.blueman-applet.enable = true;
