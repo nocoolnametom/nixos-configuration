@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ./password-store-sync ./nixos-configuration-sync ];
+  imports = [ ./password-store-sync ./nixos-configuration-sync ./work-npm ];
 }

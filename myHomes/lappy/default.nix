@@ -20,6 +20,7 @@
   programs.zsh.enable = true;
 
   services.blueman-applet.enable = true;
+  services.davmail-config.enable = true;
   services.gpg-agent.enable = true;
   services.insync.enable = true;
   services.kbfs.enable = true;
@@ -39,6 +40,7 @@
   services.password-store-sync.enable = true;
   services.playerctld.enable = true;
   services.vdirsyncer.enable = true;
+  services.work-npm.enable = true;
 
   systemd.user.startServices = true;
 }
