@@ -3,17 +3,41 @@
 
   fonts.fontconfig.enable = true;
 
-  programs.my-i3status-rust.enable = true;
-  programs.my-sway.enable = true;
+  gtk.enable = true;
+  gtk.gtk3.extraConfig = { gtk-decoration-layout = "appmenu:none"; };
 
+  programs.bash.enable = true;
+  programs.feh.enable = true;
+  programs.go.enable = true;
+  programs.mailcap.enable = true;
+  programs.my-i3status-rust.enable = true;
+  programs.my-kitty.enable = true;
+  programs.my-kitty.font-size = 13;
+  programs.my-neomutt.enable = true;
+  programs.my-newsboat.enable = true;
+  programs.my-sway.enable = true;
+  programs.zsh.enable = true;
+
+  services.blueman-applet.enable = true;
+  services.gpg-agent.enable = true;
   services.insync.enable = true;
+  services.kbfs.enable = true;
+  services.kbfs.mountPoint = "keybase";
+  services.keybase.enable = true;
   services.lorri.enable = true;
+  services.mbsync.enable = true;
+  services.my-insync.enable = true;
+  services.my-kanshi.enable = true;
   services.my-kanshi.enable = true;
   services.my-mako.enable = true;
-  services.my-wlsunset.enable = true;
   services.my-spotifyd.enable = true;
+  services.my-vdirsyncer.enable = true;
+  services.my-wlsunset.enable = true;
   services.nixos-configuration-sync.enable = true;
   services.pass-secret-service.enable = true;
   services.password-store-sync.enable = true;
+  services.playerctld.enable = true;
   services.vdirsyncer.enable = true;
+
+  systemd.user.startServices = true;
 }
