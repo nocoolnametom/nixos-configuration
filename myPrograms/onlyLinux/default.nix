@@ -1,4 +1,4 @@
 
 {
-  imports = [ ./my-i3status-rust ./my-sway ];
+  imports = [ ./my-i3status-rust ./my-kitty ./my-neomutt ./my-sway ];
 }

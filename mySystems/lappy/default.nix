@@ -153,6 +153,8 @@
 
   virtualisation.lxd.enable =
     false; # Something here is preventing builds when apparmor is enabled..
+  virtualisation.docker.enable = true;
+  virtualisation.docker.autoPrune.enable = true;
 
   networking.firewall.allowedTCPPorts = [ 5900 ];
 

@@ -25,4 +25,6 @@ rec {
   oauthClientId = "foo-bar";
   oauthTenantId = "foo-bar";
   intelephenseKey = "YourKeyHere!";
+  protonmailBridgePassword = "Protonmail!";
+  gmailAppPassword = "foobar";
 }

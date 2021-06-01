@@ -6,6 +6,7 @@
 
   services.davmail-config.enable = true;
   services.lorri.enable = true;
+  services.my-mail.enable = true;
   services.nixos-configuration-sync.enable = true;
   services.password-store-sync.enable = true;
   services.pass-secret-service.enable = true;

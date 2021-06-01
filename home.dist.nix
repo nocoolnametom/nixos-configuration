@@ -93,13 +93,9 @@ in {
   programs.zsh.oh-my-zsh.theme = "powerlevel9k/powerlevel9k";
   programs.zsh.shellAliases.hm =
     "home-manager -I nixpkgs=/nix/var/nix/profiles/per-user/$USER/channels/unstable";
-  programs.zsh.sessionVariables.EDITOR = "vim";
-  programs.zsh.sessionVariables.PAGER = "less";
-  programs.zsh.sessionVariables.DIRENV_LOG_FORMAT = "";
-  programs.zsh.sessionVariables.NIX_AUTO_RUN =
-    "1"; # NixOS Auto-installs a program when called, temporarily
-  programs.zsh.sessionVariables.TERM = "xterm-256color";
-  programs.zsh.sessionVariables.TERMINFO = "${pkgs.kitty}/lib/kitty/terminfo";
+
+  home.sessionVariables = import ./sessionVariables.nix { inherit pkgs config homeDirectory; };
+  programs.zsh.sessionVariables = import ./sessionVariables.nix { inherit pkgs config homeDirectory; };
 
   home.file.".zsh_custom/themes/powerlevel9k".source =
     "${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k";

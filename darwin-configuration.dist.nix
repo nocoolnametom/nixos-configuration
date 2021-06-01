@@ -35,11 +35,9 @@ in {
 
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
   environment.systemPackages = (import ./myInstalls/systems { inherit pkgs; });
-  environment.variables = {
-    HOME = "/Users/tdoggett";
-    PAGER = "less -R";
-    EDTIOR = "vim";
-  };
+  environment.variables = let homeDirectory = "/Users/tdoggett";
+  in ((import ./sessionVariables.nix { inherit pkgs config homeDirectory; })
+    // { })
   environment.shellAliases = {
     hm = "home-manager";
     rm = "rm -i";

@@ -1,5 +1,5 @@
 { pkgs, lib ? pkgs.lib, ... }:
 
 {
-  imports = [ ./mailcap ./my-tuir ./my-vim ./passff ];
+  imports = [ ./mailcap ./my-newsboat ./my-tuir ./my-vim ./passff ];
 }

@@ -33,7 +33,10 @@ in {
   # boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
 
   # Set your time zone.
-  time.timeZone = if (lib.hasAttrByPath ["myLocation" "timeZone"] pkgs) then pkgs.myLocation.timeZone else "America/Los_Angeles";
+  time.timeZone = if (lib.hasAttrByPath [ "myLocation" "timeZone" ] pkgs) then
+    pkgs.myLocation.timeZone
+  else
+    "America/Los_Angeles";
 
   networking.networkmanager.enable = true; # Use NMCLI for Wifi/VPN access
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -115,11 +118,9 @@ in {
     keyMap = "us";
   };
 
-  environment.variables = {
-    EDITOR = "vim";
-    HOME = "/home/tdoggett";
-    PAGER = "less -R";
-  };
+  environment.variables = let homeDirectory = "/home/tdoggett";
+  in ((import ./sessionVariables.nix { inherit pkgs config homeDirectory; })
+    // { });
   environment.shellAliases = {
     hm = "home-manager";
     rm = "rm -i";
@@ -184,12 +185,6 @@ in {
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # Enable building LXD containers
-  virtualisation.lxd.enable = true;
-
-  # Docker
-  virtualisation.docker.enable = true;
-  virtualisation.docker.autoPrune.enable = true;
 
   # Write current configuration files to a derivation that can be read.
   # This is helpful if you are loading a previous generation that is not

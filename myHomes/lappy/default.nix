@@ -12,7 +12,6 @@
   programs.mailcap.enable = true;
   programs.my-i3status-rust.enable = true;
   programs.my-kitty.enable = true;
-  programs.my-kitty.font-size = 13;
   programs.my-neomutt.enable = true;
   programs.my-newsboat.enable = true;
   programs.my-sway.enable = true;
@@ -28,12 +27,9 @@
   services.keybase.enable = true;
   services.lorri.enable = true;
   services.mbsync.enable = true;
-  services.my-insync.enable = true;
-  services.my-kanshi.enable = true;
   services.my-kanshi.enable = true;
   services.my-mako.enable = true;
   services.my-spotifyd.enable = true;
-  services.my-vdirsyncer.enable = true;
   services.my-wlsunset.enable = true;
   services.nixos-configuration-sync.enable = true;
   services.pass-secret-service.enable = true;
