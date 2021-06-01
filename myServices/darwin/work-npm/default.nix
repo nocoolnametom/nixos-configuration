@@ -10,7 +10,7 @@ let
   '';
   syncScript = pkgs.writeShellScript "npmrc-immutable-copy" ''
     [[ -e .npmrc.immutable ]] \
-      ${pkgs.coreutils}/bin/touch .npmrc \
+      && ${pkgs.coreutils}/bin/touch .npmrc \
       && $(${pkgs.gnugrep}/bin/grep -v -x -f .npmrc.immutable .npmrc > .npmrcnew || ${pkgs.coreutils}/bin/touch .npmrcnew) \
       && ${pkgs.coreutils}/bin/cat .npmrc.immutable > .npmrc \
       && ${pkgs.coreutils}/bin/cat .npmrcnew >> .npmrc \
@@ -27,10 +27,10 @@ in {
   };
 
   config = mkIf config.services.work-npm.enable {
-    home.file.".npmrc.immutable".text = npmRc;
+    home-manager.users.tdoggett.home.file.".npmrc.immutable".text = npmRc;
     launchd.user.agents.work-npm-immutable = {
-      WorkingDirectory = "/Users/tdoggett";
       command = "${syncScript}";
+      serviceConfig.WorkingDirectory = "/Users/tdoggett";
       serviceConfig.UserName = "tdoggett";
       serviceConfig.KeepAlive = false;
       serviceConfig.RunAtLoad = true;
