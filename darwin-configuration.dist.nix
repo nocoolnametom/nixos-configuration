@@ -84,6 +84,8 @@ in {
 
   services.password-store-sync.enable = true;
 
+  services.nixos-configuration-sync.enable = true;
+
   # Create /etc/bashrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on catalina
   # programs.fish.enable = true;

@@ -12,6 +12,7 @@
   services.my-mako.enable = true;
   services.my-wlsunset.enable = true;
   services.my-spotifyd.enable = true;
+  services.nixos-configuration-sync.enable = true;
   services.pass-secret-service.enable = true;
   services.password-store-sync.enable = true;
   services.vdirsyncer.enable = true;
