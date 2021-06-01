@@ -20,4 +20,9 @@ in rec {
 
   khal-today =
     pkgs.callPackage ./tools/misc/khal-today { inherit khal-events; };
+
+  blinkstick-alert-dbus-monitor =
+    pkgs.callPackage ./tools/misc/blinkstick-alert-dbus-monitor { };
+
+  playerctl-fast = pkgs.callPackage ./tools/misc/playerctl-fast { };
 }

@@ -23,7 +23,7 @@ in {
         "https://github.com/rycee/home-manager/archive/master.tar.gz"
       }/nixos")
     ./overlays-import.nix
-    ./myConfigurations
+    ./mySystems
   ] ++ (lib.optionals (lib.pathExists ./configuration.nix)
     [ ./configuration.nix ]);
 
@@ -33,7 +33,7 @@ in {
   # boot.kernel.sysctl."fs.inotify.max_user_watches" = 524288;
 
   # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = if (lib.hasAttrByPath ["myLocation" "timeZone"] pkgs) then pkgs.myLocation.timeZone else "America/Los_Angeles";
 
   networking.networkmanager.enable = true; # Use NMCLI for Wifi/VPN access
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

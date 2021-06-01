@@ -14,11 +14,14 @@
 
 { pkgs, lib ? pkgs.lib, config, ... }:
 
-# You should only need to change the hostName here
+# You should only need to change the hostName and location here
 let hostName = "exampleMachine";
+
+# Options are: "home", "work", "orem", "boston", "hebron", "london"
+location = "home";
 
 in {
   networking.hostName = hostName;
-
+  nixpkgs.overlays = [ (import ./myLocations location) ];
   imports = import ./hostname-imports.nix { inherit pkgs lib hostName; };
 }

@@ -16,7 +16,6 @@ let
       config.home.homeDirectory
     else
       config.users.users.tdoggett.home);
-  myVim = import ./myVim { inherit pkgs; };
 in {
   imports = (import ./myHomes { inherit pkgs config hostName; })
     ++ [ ./myPrograms/allSystems ]
@@ -27,11 +26,7 @@ in {
     ]) # Rememer that darwin services are in the system config!
     ++ (lib.optionals (lib.pathExists ./home.nix) [ ./home.nix ]);
 
-  programs.vim = { inherit (myVim) plugins settings extraConfig; };
-  programs.vim.enable = true;
-
-  home.file.".vim/coc-settings.json".text = myVim.cocSettingsFile;
-  home.file."intelephense/licence.txt".text = pkgs.workInfo.intelephenseKey;
+  programs.my-vim.enable = true;
 
   programs.gpg.enable = true;
   programs.gpg.homedir = "${homeDirectory}/.gnupg";
@@ -60,6 +55,8 @@ in {
   };
   programs.browserpass.enable = true;
   programs.browserpass.browsers = [ "firefox" "chrome" ];
+  programs.passff.enable = true;
+  programs.passff.browsers = [ "firefox" "chrome" ];
 
   programs.ssh.enable = true;
   programs.ssh.matchBlocks = (import ./mySSHConfigs {

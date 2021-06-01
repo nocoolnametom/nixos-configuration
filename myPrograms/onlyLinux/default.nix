@@ -1,5 +1,4 @@
-{ pkgs, lib ? pkgs.lib, ... }:
 
 {
-  imports = [ ./my-i3status-rust ];
+  imports = [ ./my-i3status-rust ./my-sway ];
 }

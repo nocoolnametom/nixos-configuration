@@ -6,4 +6,5 @@
   services.pass-secret-service.enable = true;
 
   programs.my-i3status-rust.enable = true;
+
 }

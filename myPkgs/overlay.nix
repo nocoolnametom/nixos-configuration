@@ -9,7 +9,8 @@
   in rec {
     inherit (originals)
       wakatime-zsh-plugin intelephense coc-phpls bash-language-server
-      khal-events khal-events-json khal-events-plain khal-today;
+      khal-events khal-events-json khal-events-plain khal-today
+      blinkstick-alert-dbus-monitor playerctl-fast;
     "@yaegassy/coc-intelephense" = originals."@yaegassy/coc-intelephense";
     workVpn = originals.workVpn.override rec {
       username = workInfo.userName;

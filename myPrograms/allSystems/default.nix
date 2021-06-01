@@ -1,5 +1,5 @@
 { pkgs, lib ? pkgs.lib, ... }:
 
 {
-  imports = [ ];
+  imports = [ ./my-vim ./passff ];
 }
