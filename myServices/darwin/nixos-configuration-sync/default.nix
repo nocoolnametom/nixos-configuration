@@ -9,8 +9,8 @@ in {
       mkEnableOption "Nixos-configuration repo periodic sync";
 
     services.nixos-configuration-sync.interval = mkOption {
-      type = types.string;
-      default = 600;
+      type = types.str;
+      default = "600";
       example = literalExample "600";
       description =
         "How often in seconds to synchronise the nixos-configuration git repository with its default upstream.";
@@ -27,7 +27,7 @@ in {
       serviceConfig.UserName = "tdoggett";
       serviceConfig.KeepAlive = false;
       serviceConfig.RunAtLoad = true;
-      serviceConfig.StartInterval = builtins.toInt cfg.interval;
+      serviceConfig.StartInterval = lib.toInt cfg.interval;
     };
 
   };
