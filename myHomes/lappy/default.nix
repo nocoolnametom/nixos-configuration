@@ -18,7 +18,6 @@
   programs.my-tuir.enable = true;
   programs.zsh.enable = true;
 
-  services.blueman-applet.enable = true;
   services.davmail-config.enable = true;
   services.gpg-agent.enable = true;
   services.insync.enable = true;

@@ -4,14 +4,19 @@ let hostFile = ./. + builtins.toPath ("/" + hostName);
 in (lib.optionals (builtins.pathExists hostFile)
   (import hostFile { inherit pkgs; })) ++ (with pkgs; [
     # These packages will be installed in the user scope on ALL machines (maybe put them into the system scope?)
+    ctags
+    myGitRepos.personal_repos
+    myGitRepos.personalgitclone
+    myGitRepos.work_repos
     myGitRepos.zg_backup
     myGitRepos.zgitclone
-    myGitRepos.work_repos
-    myGitRepos.personalgitclone
-    myGitRepos.personal_repos
-    myPkgs.workVpn
-    myPkgs.intelephense
     myPkgs.bash-language-server
-    ctags
+    myPkgs.intelephense
+    myPkgs.workVpn
+    nixfmt
     nodejs-14_x
+    pandoc
+    sysstat
+    unzip
+    xdg-utils # xdg-utils provides automatic opening of applications, like firefox when a URL is clicked
   ])

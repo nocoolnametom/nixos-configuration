@@ -24,7 +24,7 @@ in {
         programs.i3status-rust.bars = {
           top = {
             icons = "awesome5";
-            theme = "slickq";
+            theme = "slick";
             blocks = [
               {
                 # Upcoming Events

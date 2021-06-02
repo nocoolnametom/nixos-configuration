@@ -37,6 +37,8 @@
     };
   };
 
+  hardware.bluetooth.enable = true;
+
   # Thinkpad fan control
   services.thinkfan.enable = true;
   services.thinkfan.levels = [

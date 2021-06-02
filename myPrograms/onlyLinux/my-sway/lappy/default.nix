@@ -57,7 +57,7 @@
       position = "top";
       trayOutput = "*";
       statusCommand =
-        "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config.toml";
+        "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-top.toml";
       colors = {
         separator = "#666666";
         background = "#222222";
