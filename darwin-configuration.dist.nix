@@ -20,8 +20,6 @@ in {
   ] ++ (lib.optionals (lib.pathExists ./configuration.nix)
     [ ./configuration.nix ]);
 
-  environment.variables = { EDITOR = "vim"; };
-
   programs.zsh.interactiveShellInit = ''
     # Reload environment variables
     if test -f /etc/zshenv; then
@@ -37,7 +35,7 @@ in {
   environment.systemPackages = (import ./myInstalls/systems { inherit pkgs; });
   environment.variables = let homeDirectory = "/Users/tdoggett";
   in ((import ./sessionVariables.nix { inherit pkgs config homeDirectory; })
-    // { })
+    // { });
   environment.shellAliases = {
     hm = "home-manager";
     rm = "rm -i";
