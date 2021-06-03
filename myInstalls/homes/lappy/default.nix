@@ -24,7 +24,6 @@ with pkgs; [
   pulseaudio
   qtpass
   ripcord
-  rsync
   slack
   terraform
   thunderbird

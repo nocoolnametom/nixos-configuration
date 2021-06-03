@@ -1,1 +1,1 @@
-{ pkgs, ... }: with pkgs; [ kitty ]
+{ pkgs, ... }: with pkgs; [ ]
