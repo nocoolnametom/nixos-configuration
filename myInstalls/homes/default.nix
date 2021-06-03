@@ -17,7 +17,6 @@ in (lib.optionals (builtins.pathExists hostFile)
     nodejs-14_x
     pandoc
     rsync
-    sysstat
     unzip
     xdg-utils # xdg-utils provides automatic opening of applications, like firefox when a URL is clicked
   ])

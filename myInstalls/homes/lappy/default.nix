@@ -25,6 +25,7 @@ with pkgs; [
   qtpass
   ripcord
   slack
+  sysstat
   terraform
   thunderbird
   todoist-electron
