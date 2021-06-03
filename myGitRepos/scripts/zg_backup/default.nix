@@ -1,7 +1,10 @@
-{ pkgs ? import <nixpkgs> { }, stdenv ? pkgs.stdenv
+{ pkgs ? import <nixpkgs> { }
+, stdenv ? pkgs.stdenv
 , projectsDir ? if stdenv.isDarwin then "Projects" else "projects"
-, workShortName ? "example", workDir ? "${projectsDir}/itx"
-, sourceListFile ? "/.local/share/workgits", ... }:
+, workShortName ? "example"
+, workDir ? "${projectsDir}/itx"
+, sourceListFile ? "/.local/share/workgits"
+, ... }:
 
 pkgs.writeShellScriptBin "zg_backup" ''
   projects="$HOME/${projectsDir}"
@@ -9,7 +12,7 @@ pkgs.writeShellScriptBin "zg_backup" ''
 
   originaldir="$(pwd)"
   dest="$projects/backup";
-  mkdir -p "$dest"
+  [[ ! -e "$dest" ]] && mkdir -p "$dest"
   cd "$dest"
   while IFS= read -r gitdir
   do

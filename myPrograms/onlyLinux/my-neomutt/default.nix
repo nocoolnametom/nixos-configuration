@@ -95,62 +95,58 @@ in {
     programs.neomutt.checkStatsInterval = null; # or a number, like 60?
     programs.neomutt.editor = "vim +/^$ ++1";
     programs.neomutt.settings = {
-      # sidebar
-      folder = "${config.accounts.email.maildirBasePath}";
-      sidebar_folder_indent = "no";
-      sidebar_divider_char = "' | '";
-      sidebar_delim_chars = "'/'";
-      sidebar_indent_string = "'  '";
-      # general
-      mail_check_stats = "yes";
-      tmpdir = "${config.accounts.email.maildirBasePath}/tmp";
-      sort_browser = "reverse-date";
-      sort_aux = "last-date-received";
-      realname = "'Tom Doggett'";
-      use_from = "yes";
-      new_mail_command = ''
-        "${pkgs.libnotify}/bin/notify-send --icon '${pkgs.neomutt}/share/doc/neomutt/logo/neomutt.svg' 'New Email' '%n new messages, %u unread.' &"'';
-      # basic options
-      wait_key = "no";
-      mbox_type = "Maildir";
-      timeout = "3";
-      mail_check = "5";
-      copy = "yes";
-      delete = "yes";
-      quit = "yes";
-      # compose view options
-      use_envelope_from = "yes";
-      edit_headers = "yes";
-      fast_reply = "yes";
-      askcc = "yes";
-      fcc_attach = "yes";
-      forward_format = "'Fwd: %s'";
-      forward_decode = "yes";
-      attribution = "'On %d, %n wrote:'";
-      reply_to = "yes";
-      reverse_name = "yes";
-      include = "yes";
-      forward_quote = "yes";
-      text_flowed = "yes";
-      # encryption
-      pgp_default_key = "5279843C73EB8029F9F6AF0EC4252D5677A319CA";
-      crypt_use_gpgme = "yes"; # use gpg for signing and encryption
-      crypt_autosign = "yes"; # automatically sign all outgoing mail
-      crypt_autoencrypt = "no"; # do not automatically encrypt all outgoing mail
-      crypt_verify_sig = "yes"; # verify incoming signed mail
-      crypt_replysign = "yes"; # automatically sign replies to encrypted mail
-      crypt_replyencrypt =
-        "yes"; # automatically encrypt replies to encrypted mail
-      crypt_replysignencrypted =
-        "yes"; # automatically encrypt replies to signed mail
-      pgp_check_gpg_decrypt_status_fd =
-        "yes"; # Use GPG when mutt makes calls to PGP
-      pgp_self_encrypt = "yes"; # Save a copy of the encrypted outgoing mail
-      # colors
-
-    } // (lib.optional (config.programs.mailcap.enable) {
-      mailcap_path = home.file.".mailcap";
-    });
+        # sidebar
+        folder = "${config.accounts.email.maildirBasePath}";
+        sidebar_folder_indent = "no";
+        sidebar_divider_char = "' | '";
+        sidebar_delim_chars = "'/'";
+        sidebar_indent_string = "'  '";
+        # general
+        mail_check_stats = "yes";
+        tmpdir = "${config.accounts.email.maildirBasePath}/tmp";
+        sort_browser = "reverse-date";
+        sort_aux = "last-date-received";
+        realname = "'Tom Doggett'";
+        use_from = "yes";
+        new_mail_command = ''
+          "${pkgs.libnotify}/bin/notify-send --icon '${pkgs.neomutt}/share/doc/neomutt/logo/neomutt.svg' 'New Email' '%n new messages, %u unread.' &"'';
+        # basic options
+        wait_key = "no";
+        mbox_type = "Maildir";
+        timeout = "3";
+        mail_check = "5";
+        copy = "yes";
+        delete = "yes";
+        quit = "yes";
+        # compose view options
+        use_envelope_from = "yes";
+        edit_headers = "yes";
+        fast_reply = "yes";
+        askcc = "yes";
+        fcc_attach = "yes";
+        forward_format = "'Fwd: %s'";
+        forward_decode = "yes";
+        attribution = "'On %d, %n wrote:'";
+        reply_to = "yes";
+        reverse_name = "yes";
+        include = "yes";
+        forward_quote = "yes";
+        text_flowed = "yes";
+        # encryption
+        pgp_default_key = "5279843C73EB8029F9F6AF0EC4252D5677A319CA";
+        crypt_use_gpgme = "yes"; # use gpg for signing and encryption
+        crypt_autosign = "yes"; # automatically sign all outgoing mail
+        crypt_autoencrypt = "no"; # do not automatically encrypt all outgoing mail
+        crypt_verify_sig = "yes"; # verify incoming signed mail
+        crypt_replysign = "yes"; # automatically sign replies to encrypted mail
+        crypt_replyencrypt =
+          "yes"; # automatically encrypt replies to encrypted mail
+        crypt_replysignencrypted =
+          "yes"; # automatically encrypt replies to signed mail
+        pgp_check_gpg_decrypt_status_fd =
+          "yes"; # Use GPG when mutt makes calls to PGP
+        pgp_self_encrypt = "yes"; # Save a copy of the encrypted outgoing mail
+      };
     programs.neomutt.extraConfig = ''
       ${newNamedMailboxes}
 

@@ -136,6 +136,8 @@ in {
         gaps = { } // swayConfig.config.gaps;
         modes = {
           resize = {
+            Return = ''mode "default'';
+            Escape = ''mode "default"'';
             "${config.wayland.windowManager.sway.config.left}" =
               "resize shrink width 10 px";
             "${config.wayland.windowManager.sway.config.down}" =

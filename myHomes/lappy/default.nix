@@ -27,6 +27,7 @@
   services.lorri.enable = true;
   services.mbsync.enable = true;
   services.my-kanshi.enable = true;
+  services.my-mail.enable = true;
   services.my-mako.enable = true;
   services.my-spotifyd.enable = true;
   services.my-wlsunset.enable = true;
@@ -36,6 +37,7 @@
   services.playerctld.enable = true;
   services.vdirsyncer.enable = true;
   services.work-npm.enable = true;
+  services.zgbackup.enable = true;
 
   systemd.user.startServices = true;
 }

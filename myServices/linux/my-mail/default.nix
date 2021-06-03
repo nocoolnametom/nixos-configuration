@@ -25,7 +25,6 @@ in {
     programs.msmtp.enable = true;
     services.mbsync.enable = true;
 
-
     accounts.email = {
       maildirBasePath = config.home.homeDirectory + "/Mail";
 
