@@ -120,7 +120,7 @@ let
     # Loggings settings
 
     # log file path, leave empty for default path
-    davmail.logFilePath=~/.cache/davmail
+    davmail.logFilePath=.cache/davmail
     # maximum log file size, use Log4J syntax, set to 0 to use an external rotation mechanism, e.g. logrotate
     davmail.logFileSize=1MB
     # log levels
