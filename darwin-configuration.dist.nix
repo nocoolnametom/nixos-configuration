@@ -7,7 +7,10 @@ let
   workInfo = if pkgs.lib.pathExists ./workInfo.nix then
     (import ./workInfo.nix { inherit pkgs lib; })
   else
-    (import ./workInfo_example.nix { inherit pkgs lib; });
+  (import ./workInfo_example.nix { inherit pkgs lib; });
+  # Options are: "home", "work", "lafayette", "orem", "boston", "hebron", "london"
+  location = "work";
+  hostName = "ZG02911";
 in {
   imports = [
     "${
@@ -29,6 +32,7 @@ in {
 
   nixpkgs.overlays = import ./overlays.nix ++ [
     (self: super: { hostName = lib.toLower config.networking.hostName; })
+    (import ./myLocations location)
   ];
 
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
@@ -67,6 +71,12 @@ in {
   system.defaults.dock.showhidden = true;
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
+
+  # Time Zone set from location
+  time.timeZone = pkgs.myLocation.timeZone;
+
+  # Hostname
+  networking.hostName = hostName;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
