@@ -15,8 +15,8 @@ let
       max_comment_cols = 120;
       hide_username = false;
       theme = "papercolor";
-      oauth_client_id = "zjyhNI7tK8ivzQ";
-      oauth_client_secret = "praw_gapfill";
+      oauth_client_id = "Qi7HfL_xWgm0pZsOGcwLxQ";
+      oauth_client_secret = import ./tuir_api_secret.nix;
       oauth_redirect_uri = "http://127.0.0.1:65000/";
       oauth_redirect_port = 65000;
       oauth_scope =
