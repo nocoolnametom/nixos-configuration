@@ -1,8 +1,13 @@
 let self = {
-  home = {
+  lafayette = {
     lat = "37.8";
     long = "-122.1";
     timeZone = "America/Los_Angeles";
+  };
+  home = {
+    lat = "42.47";
+    long = "-76.48";
+    timeZone = "America/New_York";
   };
   work = {
     lat = "37.7";

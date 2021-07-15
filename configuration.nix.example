@@ -17,7 +17,7 @@
 # You should only need to change the hostName and location here
 let hostName = "exampleMachine";
 
-# Options are: "home", "work", "orem", "boston", "hebron", "london"
+# Options are: "home", "work", "lafayette", "orem", "boston", "hebron", "london"
 location = "home";
 
 in {
