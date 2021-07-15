@@ -78,6 +78,7 @@
     fira-code
     liberation_ttf
     ubuntu_font_family
+    gyre-fonts
   ];
   fonts.fontconfig = {
     dpi = 142;
@@ -152,6 +153,7 @@
 
   networking.networkmanager.enable = true;
   networking.nameservers = [ "8.8.8.8" "8.8.4.4" ];
+  networking.interfaces.wlp0s20f3.useDHCP = true;
 
   virtualisation.lxd.enable =
     false; # Something here is preventing builds when apparmor is enabled..
@@ -163,7 +165,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [
-    # pkgs.hplipWithPlugin
+    pkgs.hplipWithPlugin
     pkgs.gutenprint
     pkgs.gutenprintBin
   ];

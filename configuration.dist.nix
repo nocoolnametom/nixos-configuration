@@ -45,7 +45,6 @@ in {
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.ens33.useDHCP = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -69,7 +68,6 @@ in {
         type=vpn
         autoconnect=false
         permissions=
-        timestamp=1596818105
 
         [vpn]
         authtype=password
@@ -179,8 +177,15 @@ in {
   services.mysql.enable = true;
   services.mysql.package = pkgs.mysql;
 
-  # Enable the NTP daemon.
-  services.ntp.enable = true;
+  # Enable the Time Sync daemon
+  services.timesyncd.enable = true;
+  services.timesyncd.servers = [
+    "time.google.com"
+    "time.cloudflare.com"
+    "time.facebook.com"
+    "time.windows.com"
+    "time.apple.com"
+  ];
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

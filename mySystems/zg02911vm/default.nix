@@ -15,8 +15,11 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
-  
+
   virtualisation.lxd.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.docker.autoPrune.enable = true;
+
+  # Use DHCP for wireless network connection
+  networking.interfaces.ens33.useDHCP = true;
 }
