@@ -20,7 +20,7 @@ in {
         global = {
           username = "oey8uvlx90107ncq7chxkh504";
           password_cmd =
-            "${pkgs.pass}/bin/pass Media/Spotify.com | ${pkgs.coreutils}/bin/head -1";
+            "${pkgs.pass}/bin/pass Spotify.com/nocoolnametom@gmail.com | ${pkgs.coreutils}/bin/head -1";
           device_name = "nix_${pkgs.hostName}";
           backend = "pulseaudio";
           device_type = "computer";
