@@ -135,25 +135,27 @@
     identityFile = workRsa;
     user = "tdoggett";
   };
-  zg02911 = {
+  ZG02911 = {
     host = builtins.concatStringsSep " " [
-      "zg02911"
       "ZG02011"
-      "zg02911.local"
-      "ZG02911.local"
     ];
-    hostname = "192.168.86.66";
+    hostname = "192.168.0.12";
+    identityFile = workRsa;
+    user = "tdoggett";
+  };
+  ZG02911-Wifi = {
+    host = builtins.concatStringsSep " " [
+      "ZG02911-Wifi"
+    ];
+    hostname = "192.168.0.11";
     identityFile = workRsa;
     user = "tdoggett";
   };
   zg02911vm = {
     host = builtins.concatStringsSep " " [
       "zg02911vm"
-      "ZG02011VM"
-      "zg02911vm.local"
-      "ZG02911VM.local"
     ];
-    hostname = "192.168.86.48";
+    hostname = "192.168.0.10";
     identityFile = workRsa;
     user = "tdoggett";
   };

@@ -47,25 +47,25 @@
   };
   bert = {
     host = "bert";
-    hostname = "192.168.86.250";
+    hostname = "192.168.0.20";
     identityFile = idRsa;
     user = "tdoggett";
   };
   pippin = {
     host = "pippin";
-    hostname = "192.168.86.141";
+    hostname = "192.168.0.22";
     identityFile = idRsa;
     user = "pi";
   };
   shirriff = {
     host = "shirriff";
-    hostname = "192.168.86.34";
+    hostname = "192.168.0.8";
     identityFile = idRsa;
     user = "pi";
   };
   gollum = {
     host = "gollum";
-    hostname = "192.168.86.122";
+    hostname = "192.168.0.23";
     identityFile = idRsa;
     user = "pi";
   };
