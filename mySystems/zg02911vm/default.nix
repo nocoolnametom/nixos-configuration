@@ -11,10 +11,9 @@
   virtualisation.vmware.guest.enable = true;
   virtualisation.vmware.guest.headless = true;
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   virtualisation.lxd.enable = true;
   virtualisation.docker.enable = true;
@@ -22,4 +21,17 @@
 
   # Use DHCP for wireless network connection
   networking.interfaces.ens33.useDHCP = true;
+
+  fileSystems."/host" = {
+    device = ".host:/";
+    fsType = "fuse./run/current-system/sw/bin/vmhgfs-fuse";
+    options = [
+      "umask=22"
+      "uid=1000"
+      "gid=499"
+      "allow_other"
+      "defaults"
+      "auto_unmount"
+    ];
+  };
 }
