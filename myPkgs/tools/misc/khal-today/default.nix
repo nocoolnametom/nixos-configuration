@@ -6,6 +6,8 @@ pkgs.writeShellScriptBin "khal-today" ''
   while [ : ]
   do
     clear
+    echo "San Francisco: `TZ='America/Los_Angeles' ${pkgs.coreutils}/bin/date +%l:%M%P`"
+    echo ""
     ${khal-events}/bin/khal-events
     echo ""
     ${khal}/bin/khal list "`${pkgs.coreutils}/bin/date +%F\ %I:%M\ %p`" "`${pkgs.coreutils}/bin/date --date='tomorrow' +%Y-%m-%d\ 11:59\ PM`" -f "{start-time}-{end-time} {title}" --notstarted

@@ -3,15 +3,16 @@
 , projectsDir ? if stdenv.isDarwin then "Projects" else "projects"
 , workShortName ? "example"
 , workDir ? "${projectsDir}/itx"
-, sourceListFile ? "/.local/share/workgits"
+, sourceListFile ? ".local/share/workgits"
 , ... }:
 
 pkgs.writeShellScriptBin "zg_backup" ''
+  host=`hostname -s`
   projects="$HOME/${projectsDir}"
   work="$HOME/${workDir}"
 
   originaldir="$(pwd)"
-  dest="$projects/backup";
+  dest=`[[ -z $DESTINATION ]] && echo "$projects/backup/$host" || echo "$DESTINATION"`;
   [[ ! -e "$dest" ]] && mkdir -p "$dest"
   cd "$dest"
   while IFS= read -r gitdir

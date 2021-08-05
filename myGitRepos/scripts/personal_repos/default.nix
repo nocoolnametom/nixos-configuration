@@ -60,8 +60,8 @@ in pkgs.writeShellScriptBin "personal_repos" ''
   if [ $URLS_ACTIVE -eq 1 ]; then
 
     # Remove listing of current personal git repos
-    if [ -e ${builtins.getEnv "HOME"}/.local/share/personalgits ]; then
-      rm ${builtins.getEnv "HOME"}/.local/share/personalgits
+    if [ -e "$HOME/.local/share/personalgits" ]; then
+      rm "$HOME/.local/share/personalgits"
     fi
 
     ${buildProjectList personalProjectList}

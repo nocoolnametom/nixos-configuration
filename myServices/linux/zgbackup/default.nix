@@ -40,7 +40,8 @@ in {
       Service = {
         CPUSchedulingPolicy = "idle";
         IOSchedulingClass = "idle";
-        ExecStart = "${pkgs.myGitRepos.zg_backup}";
+        ExecStart = "${pkgs.myGitRepos.zg_backup}/bin/zg_backup";
+        User="tdoggett";
       };
     };
 

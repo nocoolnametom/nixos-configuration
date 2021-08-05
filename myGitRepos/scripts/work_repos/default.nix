@@ -53,8 +53,8 @@ in pkgs.writeShellScriptBin "work_repos" (''
   if [ $URLS_ACTIVE -eq 1 ]; then
 
     # Remove listing of current work git repos
-    if [ -e ${builtins.getEnv "HOME"}/.local/share/workgits ]; then
-      rm ${builtins.getEnv "HOME"}/.local/share/workgits
+    if [ -e "$HOME/.local/share/workgits" ]; then
+      rm "$HOME/.local/share/workgits"
     fi
 
     ${buildProjectList workProjectList}
