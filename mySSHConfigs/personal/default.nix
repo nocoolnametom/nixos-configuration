@@ -29,7 +29,7 @@
     hostname = "home.nocoolnametom.com";
     identityFile = idRsa;
     user = "tdoggett";
-    port = 22224;
+    port = 2222;
   };
   linode = {
     host = "linode";
