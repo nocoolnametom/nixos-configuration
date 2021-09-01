@@ -22,6 +22,7 @@ with pkgs; [
   postman
   protonmail-bridge
   pulseaudio
+  pwgen
   qtpass
   ripcord
   slack

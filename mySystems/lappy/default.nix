@@ -81,7 +81,6 @@
     gyre-fonts
   ];
   fonts.fontconfig = {
-    dpi = 142;
     hinting.autohint = false;
     useEmbeddedBitmaps = true;
     defaultFonts.serif = [ "Liberation Serif" "Times New Roman" ];
