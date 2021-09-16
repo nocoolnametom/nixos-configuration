@@ -66,6 +66,7 @@ in {
     workRsa = toString ./myKeys/private/work_rsa;
     workEsRsa = toString ./myKeys/private/work_es_rsa;
     stageApops = toString ./myKeys/private/stage-apops;
+    meadowApops = toString ./myKeys/private/meadow_rsa;
     mysqlAccess = toString ./myKeys/private/mysqlaccess;
   });
 

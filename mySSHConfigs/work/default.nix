@@ -5,7 +5,7 @@
   # When sending in the path to the private key make sure it's a string!
   # try referencing the file by path once via something like
   # idRsa = if lib.pathExists ../idRsa then toString ../idRsa else ""
-, idRsa ? "", workRsa ? "", workEsRsa ? "", stageApops ? "", mysqlAccess ? ""
+, idRsa ? "", workRsa ? "", workEsRsa ? "", stageApops ? "", mysqlAccess ? "", meadowApops ? ""
 , ... }:
 
 { } // (lib.optionalAttrs (workEsRsa != "") {
@@ -52,7 +52,7 @@
   bastionWorkMeadow = {
     host = "bastion.${meadowDomain}";
     user = "apops";
-    identityFile = stageApops;
+    identityFile = meadowApops;
     identitiesOnly = true;
     port = null;
     forwardX11 = false;
@@ -106,7 +106,7 @@
       "10.130.207.*"
     ];
     proxyCommand = "ssh bastion.${meadowDomain} -W %h:%p";
-    identityFile = stageApops;
+    identityFile = meadowApops;
     identitiesOnly = true;
     user = "apops";
     extraOptions = {
