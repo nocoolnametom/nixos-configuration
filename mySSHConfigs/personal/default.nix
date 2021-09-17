@@ -69,5 +69,17 @@
     identityFile = idRsa;
     user = "pi";
   };
+  lappy = {
+    host = "lappy";
+    hostname = "192.168.0.13";
+    identityFile = idRsa;
+    user = "tdoggett";
+  };
+  system76-laptop = {
+    host = "system76-laptop";
+    hostname = "192.168.0.24";
+    identityFile = idRsa;
+    user = "tdoggett";
+  };
 })
 

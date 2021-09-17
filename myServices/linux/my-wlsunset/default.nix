@@ -27,6 +27,12 @@ in {
       services.wlsunset.temperature.night = 3700;
       services.wlsunset.gamma = "1.0";
     })
+
+    (mkIf (cfg.enable && pkgs.hostName == "system76-laptop") {
+      services.wlsunset.temperature.day = 5500;
+      services.wlsunset.temperature.night = 3700;
+      services.wlsunset.gamma = "1.0";
+    })
   ];
 }
 

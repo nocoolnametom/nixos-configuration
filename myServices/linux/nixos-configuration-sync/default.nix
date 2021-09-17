@@ -40,8 +40,8 @@ in {
         CPUSchedulingPolicy = "idle";
         IOSchedulingClass = "idle";
         ExecStart = toString (pkgs.writeShellScript "nixos-configuration-sync" ''
-          ${pkgs.git}/bin/git pull --rebase -C /home/tdoggett/projects/nocoolnametom/nixos-configuration && \
-          ${pkgs.git}/bin/git push -C /home/tdoggett/projects/nocoolnametom/nixos-configuration
+          ${pkgs.git}/bin/git pull --rebase -C /home/tdoggett/Projects/nocoolnametom/nixos-configuration && \
+          ${pkgs.git}/bin/git push -C /home/tdoggett/Projects/nocoolnametom/nixos-configuration
         '');
       };
     };

@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> { }, stdenv ? pkgs.stdenv, lib ? pkgs.lib
-, projectsDir ? if stdenv.isDarwin then "Projects" else "projects"
+, projectsDir ? "Projects"
 , workEmailAddress ? "tdoggett@example.com", currentBrandShort ? "current-brand"
 , gitServer ? "git.example.com", ... }:
 

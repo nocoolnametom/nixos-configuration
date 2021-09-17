@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> { }, stdenv ? pkgs.stdenv
-, projectsDir ? if stdenv.isDarwin then "Projects" else "projects", ... }:
+, projectsDir ? "Projects", ... }:
 
 let nixpkgsChannel = "nixpkgs-unstable";
 in pkgs.writeShellScriptBin "personalgitclone" ''

@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { }
 , stdenv ? pkgs.stdenv
-, projectsDir ? if stdenv.isDarwin then "Projects" else "projects"
+, projectsDir ? "Projects"
 , workShortName ? "example"
 , workDir ? "${projectsDir}/itx"
 , sourceListFile ? ".local/share/workgits"
