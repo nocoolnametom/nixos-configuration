@@ -75,7 +75,7 @@ in {
         certsigs-flags=0
         cookie-flags=2
         enable_csd_trojan=no
-        gateway=sfo.vpn.zillowgroup.com
+        gateway=nyc.vpn.zillowgroup.com
         gateway-flags=2
         gwcert-flags=2
         lasthost-flags=0

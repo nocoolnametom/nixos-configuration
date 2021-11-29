@@ -16,7 +16,7 @@
       username = workInfo.userName;
       passName = "zillow.okta.com/${username}";
       vpnName = "Zillow VPN";
-      vpnUrl = "sfo.vpn.zillowgroup.com";
+      vpnUrl = "nyc.vpn.zillowgroup.com";
     };
   };
   sway = super.sway.overrideAttrs ( old: rec {
