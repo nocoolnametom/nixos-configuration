@@ -98,6 +98,8 @@ in {
   homebrew.cleanup = "zap";
   homebrew.brews = [
     "docker"
+    "tfenv"
+    "python"
   ];
 
   # Create /etc/bashrc that loads the nix-darwin environment.
