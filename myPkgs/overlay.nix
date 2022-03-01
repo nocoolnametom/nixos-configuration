@@ -15,8 +15,8 @@
     workVpn = originals.workVpn.override rec {
       username = workInfo.userName;
       passName = "zillow.okta.com/${username}";
-      vpnName = "Zillow VPN";
-      vpnUrl = "nyc.vpn.zillowgroup.com";
+      vpnName = workInfo.workVpnName;
+      vpnUrl = workInfo.workVpnUrl;
     };
   };
   sway = super.sway.overrideAttrs ( old: rec {

@@ -10,7 +10,6 @@ rec {
   orgShortName = "Example";
   oktaOrgFullName = "Example Corp, Inc.";
   oldBrand = "Sample";
-  oldBrandUrl = "sample.com";
   oldBrandStagingDomain = "host.stage.sample.com";
   currentBrandStagingDomain = "stage.sample-amazon.com";
   currentBrandProdServicesDomain = "prod.sample-amazon.com";
@@ -26,5 +25,6 @@ rec {
   oauthTenantId = "foo-bar";
   intelephenseKey = "YourKeyHere!";
   protonmailBridgePassword = "Protonmail!";
-  gmailAppPassword = "foobar";
+  workVpnName = "Work\ VPN";
+  workVpnUrl = "loc.vpn.examplecorp.com";
 }
