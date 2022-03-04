@@ -1,10 +1,22 @@
 (self: super: let
     originals = import ./default.nix { pkgs = super; };
-    workInfo = if (super.lib.hasAttrByPath [ "workInfo" ] super) then
+    workInfo = if (super.lib.hasAttrByPath [ "workInfo" ] super)
+    then
       super.workInfo
-    else {
-      userName = "tdoggett";
-    };
+    else (
+      if (super.lib.pathExists ../workInfo.nix)
+      then
+        (import ../workInfo.nix {pkgs = super; lib = super.lib; })
+      else (
+        if (super.lib.pathExists ../workInfo_example.nix)
+        then (import ../workInfo_example.nix {pkgs = super;  lib = super.lib;})
+        else {
+          userName = "tdoggett";
+          workVpnName = "work";
+          workVpnUrl = "vpn.example.com";
+        }
+      )
+    );
   in {
   myPkgs = rec {
     inherit (originals)
