@@ -102,5 +102,7 @@ in {
     "${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k";
   home.file.".zsh_custom/plugins/wakatime".source =
     "${pkgs.myPkgs.wakatime-zsh-plugin}";
+
+  home.stateVersion = "22.05";
 }
 

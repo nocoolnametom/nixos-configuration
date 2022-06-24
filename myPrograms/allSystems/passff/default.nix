@@ -5,7 +5,7 @@ with lib;
 let
   browsers = [ "chrome" "chromium" "firefox" "vivaldi" ];
   passff = pkgs.passff-host.override {
-    pass = pkgs.pass-otp;
+    pass = pkgs.pass.withExtensions (exts: [ exts.pass-genphrase exts.pass-update exts.pass-otp ]);
   };
 in {
   options = {

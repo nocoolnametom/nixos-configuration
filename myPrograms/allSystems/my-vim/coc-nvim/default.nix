@@ -17,7 +17,7 @@
     with (import ../plugins/cocPlugins { inherit pkgs; }); [
 
       # PHP Intelephense plugin - This is a custom plugin; remember to put the license code in ~/intelephense/licence.txt
-      coc-intelephense
+      # coc-intelephense
 
       # Syntax, linting, and autosuggest
       coc-css
@@ -254,12 +254,13 @@
     "html.format.enable" = true;
     "json.format.enable" = false;
     "languageserver" = {
-      "bash" = {
-        "command" = "bash-language-server";
-        "args" = [ "start" ];
-        "filetypes" = [ "sh" ];
-        "ignoredRootPaths" = [ "~" ];
-      };
+      # Bash language server is broken so it's not installed
+      #"bash" = {
+      #  "command" = "bash-language-server";
+      #  "args" = [ "start" ];
+      #  "filetypes" = [ "sh" ];
+      #  "ignoredRootPaths" = [ "~" ];
+      #};
     };
     "suggest.echodocSupport" = true;
     "suggest.maxCompleteItemCount" = 20;

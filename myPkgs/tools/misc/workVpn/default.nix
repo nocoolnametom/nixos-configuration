@@ -13,12 +13,14 @@ else
   "nmcli c up ${lib.escape [ " " ] vpnName} --ask", ... }:
 
 let
+  passPackage = pkgs.pass.withExtensions
+    (exts: [ exts.pass-genphrase exts.pass-update exts.pass-otp ]);
   otpRequest = if stdenv.isDarwin then "Answer:" else "Response:";
   workVpnPass = pkgs.writeShellScriptBin "workVpnPass" ''
-    ${pkgs.pass-otp}/bin/pass ${passName} | ${pkgs.coreutils}/bin/head -1
+    ${passPackage}/bin/pass ${passName} | ${pkgs.coreutils}/bin/head -1
   '';
   workVpnOtp = pkgs.writeShellScriptBin "workVpnOtp" ''
-    ${pkgs.pass-otp}/bin/pass otp ${passName} | ${pkgs.coreutils}/bin/head -1
+    ${passPackage}/bin/pass otp ${passName} | ${pkgs.coreutils}/bin/head -1
   '';
 in pkgs.writeScriptBin "workVpn" ''
   #!${pkgs.expect}/bin/expect -f

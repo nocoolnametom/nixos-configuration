@@ -10,8 +10,8 @@ in (lib.optionals (builtins.pathExists hostFile)
     myGitRepos.work_repos
     myGitRepos.zg_backup
     myGitRepos.zgitclone
-    myPkgs.bash-language-server
-    myPkgs.intelephense
+    # myPkgs.bash-language-server # Causing failures when built
+    # myPkgs.intelephense # Causing failures when built
     myPkgs.workVpn
     nixfmt
     nodejs-16_x
