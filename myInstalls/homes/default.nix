@@ -14,7 +14,7 @@ in (lib.optionals (builtins.pathExists hostFile)
     myPkgs.intelephense
     myPkgs.workVpn
     nixfmt
-    nodejs-14_x
+    nodejs-16_x
     pandoc
     rsync
     unzip

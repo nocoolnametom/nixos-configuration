@@ -31,10 +31,10 @@ with import <nixpkgs> {
 
 let
   projectHome = builtins.toString ./.;
-  php = (pkgs.php73.withExtensions ({ enabled, all }:
+  php = (pkgs.php74.withExtensions ({ enabled, all }:
     with all;
     enabled ++ [ xdebug memcached redis ])).buildEnv {
-      # extensions = e: with e; phpBase.enabledExtensions ++ [ xdebug yaml];
+      # extensions = e: with e; phpBase.enabledExtensions ++ [ xdebug yaml redis ];
       extraConfig = ''
         log_errors = 1
         error_log = ${builtins.toString ./.}/.php/php_errors.log
