@@ -75,7 +75,7 @@ in {
         certsigs-flags=0
         cookie-flags=2
         enable_csd_trojan=no
-        gateway=nyc.vpn.zillowgroup.com
+        gateway=ash.vpn.zillowgroup.com
         gateway-flags=2
         gwcert-flags=2
         lasthost-flags=0
@@ -155,7 +155,7 @@ in {
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.autoOptimiseStore = true;
+  nix.settings.auto-optimise-store = true;
 
   nix.gc.automatic = true;
   nix.gc.dates = "weekly";
