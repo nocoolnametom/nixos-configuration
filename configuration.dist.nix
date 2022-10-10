@@ -175,7 +175,7 @@ in {
 
   # MySQL
   services.mysql.enable = true;
-  services.mysql.package = pkgs.mysql;
+  services.mysql.package = pkgs.mariadb;
 
   # Enable the Time Sync daemon
   services.timesyncd.enable = true;

@@ -24,6 +24,7 @@
       currentBrandShort = builtins.replaceStrings [ " " ] [ "-" ]
         (super.lib.toLower workInfo.currentBrand);
       workEmailAddress = workInfo.emailAddress;
+      gitServer = workInfo.gitServer;
     };
     personal_repos =
       scripts.personal_repos.override { inherit shells personalProjectList; };
