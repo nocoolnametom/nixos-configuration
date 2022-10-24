@@ -81,5 +81,11 @@
     identityFile = idRsa;
     user = "tdoggett";
   };
+  melian = {
+    host = "melian";
+    hostname = "192.168.0.26";
+    identityFile = idRsa;
+    user = "tdoggett";
+  };
 })
 

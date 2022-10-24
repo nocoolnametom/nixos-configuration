@@ -45,5 +45,14 @@ in {
       };
       services.spotifyd.settings.global.backend = "pulseaudio";
     })
+    (mkIf (cfg.enable && pkgs.hostName == "melian") {
+      services.spotifyd.package = pkgs.spotifyd.override {
+        withPulseAudio = true;
+        withMpris = true;
+        libpulseaudio = pkgs.libpulseaudio;
+        dbus = pkgs.dbus;
+      };
+      services.spotifyd.settings.global.backend = "pulseaudio";
+    })
   ];
 }

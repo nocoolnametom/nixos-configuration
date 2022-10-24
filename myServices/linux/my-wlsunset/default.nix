@@ -33,6 +33,12 @@ in {
       services.wlsunset.temperature.night = 3700;
       services.wlsunset.gamma = "1.0";
     })
+
+    (mkIf (cfg.enable && pkgs.hostName == "melian") {
+      services.wlsunset.temperature.day = 5500;
+      services.wlsunset.temperature.night = 3700;
+      services.wlsunset.gamma = "1.0";
+    })
   ];
 }
 

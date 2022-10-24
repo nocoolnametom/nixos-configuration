@@ -182,6 +182,81 @@ in {
         };
       };
     })
+
+    (mkIf (cfg.enable && pkgs.hostName == "melian") {
+      services.kanshi.profiles = {
+        justLaptop = {
+          outputs = [{
+            criteria = "eDP-1";
+            status = "enable"; # null, "enable", "disable"
+            mode = "1920x1080";
+            position = "0,0"; # null, or example
+            scale = null; # null or int
+            transform = null;
+          }];
+        };
+        laptopWithDell1 = {
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "enable"; # null, "enable", "disable"
+              mode = "1920x1080";
+              position = "0,200"; # null, or example
+              scale = null; # null or int
+              transform = null;
+            }
+            {
+              criteria = "DP-1";
+              status = "enable"; # null, "enable", "disable"
+              mode = "2560x1440";
+              position = "1920,0"; # null, or example
+              scale = null; # null or int
+              transform = "90";
+            }
+          ];
+        };
+        laptopWithDell2 = {
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "enable"; # null, "enable", "disable"
+              mode = "1920x1080";
+              position = "0,200"; # null, or example
+              scale = null; # null or int
+              transform = null;
+            }
+            {
+              criteria = "DP-2";
+              status = "enable"; # null, "enable", "disable"
+              mode = "2560x1440";
+              position = "1920,0"; # null, or example
+              scale = null; # null or int
+              transform = "90";
+            }
+          ];
+        };
+        onlyDell1 = {
+          outputs = [{
+            criteria = "DP-1";
+            status = "enable"; # null, "enable", "disable"
+            mode = "2560x1440";
+            position = "0,0"; # null, or example
+            scale = null; # null or int
+            transform = "90";
+          }];
+        };
+        onlyDell2 = {
+          outputs = [{
+            criteria = "DP-2";
+            status = "enable"; # null, "enable", "disable"
+            mode = "2560x1440";
+            position = "0,0"; # null, or example
+            scale = null; # null or int
+            transform = "90";
+          }];
+        };
+      };
+    })
   ];
 }
 
