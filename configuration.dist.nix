@@ -20,7 +20,7 @@ in {
     /etc/nixos/hardware-configuration.nix
     (import "${
         builtins.fetchTarball
-        "https://github.com/rycee/home-manager/archive/master.tar.gz"
+        "https://github.com/nix-community/home-manager/archive/refs/heads/release-22.05.tar.gz"
       }/nixos")
     ./overlays-import.nix
     ./mySystems
@@ -204,7 +204,7 @@ in {
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "22.05"; # Did you read the comment?
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;

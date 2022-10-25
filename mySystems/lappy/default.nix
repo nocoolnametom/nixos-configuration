@@ -207,7 +207,7 @@
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
 
-  services.dbus.packages = with pkgs; [ blueman gnome3.dconf ];
+  services.dbus.packages = with pkgs; [ blueman dconf ];
   services.blueman.enable = true;
 
   # Environmental Variables for all users
