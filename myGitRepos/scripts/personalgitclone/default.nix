@@ -144,7 +144,7 @@ in pkgs.writeShellScriptBin "personalgitclone" ''
 
   if [ ! -d "$DIR" ] ; then
     mkdir -p "$DIR"
-    git clone -q --recurse-submodules "$SERVICE_HOST:$REMOTE_USER_NAME/$REMOTE_PROJECT_NAME.git" "$DIR"
+    git clone -q --depth=1 "$SERVICE_HOST:$REMOTE_USER_NAME/$REMOTE_PROJECT_NAME.git" "$DIR"
   fi
   if [ ! -d "$DIR/.git" ] ; then
     exit
@@ -202,7 +202,7 @@ in pkgs.writeShellScriptBin "personalgitclone" ''
       fi
 
       if [[ -e package.json && ! -d node_modules ]] ; then
-        nix-shell --pure --command "npm install --progress=false --silent --quiet > /dev/null 2>&1"
+        nix-shell --pure --command "npm ci --progress=false --silent --quiet > /dev/null 2>&1"
         ${pkgs.coreutils}/bin/timeout 10 lorri watch
       fi
 
@@ -216,7 +216,7 @@ in pkgs.writeShellScriptBin "personalgitclone" ''
       fi
 
       if [[ -e package.json && ! -d node_modules ]] ; then
-        ${pkgs.nodejs}/bin/npm install --progress=false --silent --quiet > /dev/null 2>&1
+        ${pkgs.nodejs}/bin/npm ci --progress=false --silent --quiet > /dev/null 2>&1
       fi
 
       if [[ -e composer.json && ! -d vendor ]] ; then
