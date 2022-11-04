@@ -159,6 +159,14 @@
     identityFile = workRsa;
     user = "tdoggett";
   };
+  zg02911vmu = {
+    host = builtins.concatStringsSep " " [
+      "zg02911vmu"
+    ];
+    hostname = "192.168.0.14";
+    identityFile = workRsa;
+    user = "tdoggett";
+  };
   workTools = {
     host = "zgtools";
     hostname = gitServer;

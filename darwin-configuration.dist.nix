@@ -9,7 +9,7 @@ let
   else
   (import ./workInfo_example.nix { inherit pkgs lib; });
   # Options are: "home", "work", "lafayette", "orem", "boston", "hebron", "london"
-  location = "work";
+  location = "home";
   hostName = "ZG02911";
 in {
   imports = [
@@ -95,7 +95,8 @@ in {
   services.work-npm.enable = true;
 
   homebrew.enable = true;
-  homebrew.cleanup = "zap";
+  homebrew.onActivation.cleanup = "zap";
+  homebrew.onActivation.upgrade = true;
   homebrew.brews = [
     "docker"
     "tfenv"
