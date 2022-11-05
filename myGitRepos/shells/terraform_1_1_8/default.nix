@@ -3,12 +3,12 @@ with import <nixpkgs> { };
 let
   pinned = {
     tfPkgs = (import (fetchTarball
-      # Pinned to just before TF 13 support was dropped
-      "https://github.com/NixOS/nixpkgs/archive/7e8ba15961e8b2363d99cbcabe8727f9919d354c.tar.gz")
+      # Pinned to TF version 1.1.8
+      "https://github.com/NixOS/nixpkgs/archive/7d55ee2b5ced70c3786013389216bd0ba1f9350f.tar.gz")
       { }).pkgs;
   };
   projectHome = builtins.toString ./.;
-  tfPkg = pinned.tfPkgs.terraform_0_13;
+  tfPkg = pinned.tfPkgs.terraform;
 in pkgs.mkShell rec {
   # This is the list of packages used for this environment. If it's here then it's available within
   # the shell:

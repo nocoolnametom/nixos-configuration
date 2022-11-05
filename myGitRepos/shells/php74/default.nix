@@ -1,8 +1,14 @@
 with import <nixpkgs> { };
 
 let
+  pinned = {
+    phpPkgs = (import (fetchTarball
+      # Pinned to just before 7.4 support was dropped
+      "https://github.com/NixOS/nixpkgs/archive/ba45a559b5c42e123af07272b0241a73dcfa03b0.tar.gz")
+      { }).pkgs;
+  };
   projectHome = builtins.toString ./.;
-  php = (pkgs.php74.withExtensions
+  php = (pinned.phpPkgs.php74.withExtensions
     ({ enabled, all }: with all; enabled ++ [ xdebug yaml ])).buildEnv {
       # extensions = e: with e; phpBase.enabledExtensions ++ [ xdebug yaml];
       extraConfig = ''
@@ -15,11 +21,11 @@ let
     };
 in pkgs.mkShell rec {
   # This is the list of packages used for this environment:
-  buildInputs = with pkgs; [
+  buildInputs = [
     php.packages.composer
     php.packages.phpstan
     php
-    git
+    pkgs.git
   ];
 
   shellHook = ''

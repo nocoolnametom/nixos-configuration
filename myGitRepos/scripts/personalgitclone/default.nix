@@ -166,8 +166,8 @@ in pkgs.writeShellScriptBin "personalgitclone" ''
   if [[ ! -z "$NIX_SHELL" && -e "$NIX_SHELL" && ! -e ./shell.nix ]]; then
     cp "$NIX_SHELL" ./shell.nix
     if [[ $PIN -eq 1 ]] ; then
-      latestHash=`git ls-remote git://github.com/NixOS/nixpkgs-channels.git | grep refs/heads/${nixpkgsChannel} | cut -f 1`
-      sed -i.bak "s~<nixpkgs>~(fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/$latestHash.tar.gz)~" shell.nix && rm -f shell.nix.bak
+      latestHash=`git ls-remote git://github.com/NixOS/nixpkgs.git | grep refs/heads/${nixpkgsChannel} | cut -f 1`
+      sed -i.bak "s~<nixpkgs>~(fetchTarball https://github.com/NixOS/nixpkgs/archive/$latestHash.tar.gz)~" shell.nix && rm -f shell.nix.bak
       sed -i.bak "s~my_overlay = import.*;~my_overlay = import ${
         toString ../../../overlays.nix
       };~" shell.nix && rm -f shell.nix.bak

@@ -49,7 +49,7 @@ in pkgs.mkShell rec {
       [[ -e "$PROJECT_HOME/.git/info/exclude" && ! `grep "^\.node$" "$PROJECT_HOME/.git/info/exclude"` ]] && \
         echo ".node" >> "$PROJECT_HOME/.git/info/exclude"
       rm -rf "$PROJECT_HOME/.node/bin" && mkdir "$PROJECT_HOME/.node/bin"
-      ln -s ${nodejs}/bin/nodejs "$PROJECT_HOME/.node/bin"
+      ln -s ${pkgs.nodejs}/bin/nodejs "$PROJECT_HOME/.node/bin"
     fi
   '';
 }

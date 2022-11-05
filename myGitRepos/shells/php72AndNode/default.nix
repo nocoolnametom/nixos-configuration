@@ -1,12 +1,14 @@
-# with import <nixpkgs> { };
-# Pinned to just before 7.2 support was dropped
-with import (fetchTarball
-  "https://github.com/NixOS/nixpkgs-channels/archive/db2a5bf3b90ff57f0012369543782cb36c399076.tar.gz")
-  { };
+with import <nixpkgs> { };
 
 let
+  pinned = {
+    phpPkgs = (import (fetchTarball
+      # Pinned to just before 7.2 support was dropped
+      "https://github.com/NixOS/nixpkgs/archive/db2a5bf3b90ff57f0012369543782cb36c399076.tar.gz")
+      { }).pkgs;
+  };
   projectHome = builtins.toString ./.;
-  php = (pkgs.php72.withExtensions
+  php = (pinned.phpPkgs.php72.withExtensions
     ({ enabled, all }: with all; enabled ++ [ xdebug yaml ])).buildEnv {
       # extensions = e: with e; phpBase.enabledExtensions ++ [ xdebug yaml];
       extraConfig = ''
@@ -20,12 +22,12 @@ let
 in pkgs.mkShell rec {
   # This is the list of packages used for this environment. If it's here then it's available within
   # the shell:
-  buildInputs = with pkgs; [
+  buildInputs = [
     php.packages.composer
     php.packages.phpstan
     php
-    nodejs
-    nodePackages.node-gyp
+    pkgs.nodejs
+    pkgs.nodePackages.node-gyp
   ];
 
   # This sets up the environment within the shell, places the composer `vendor/bin` directory within
@@ -44,7 +46,7 @@ in pkgs.mkShell rec {
       ln -s ${php}/bin/php "$PROJECT_HOME/.php/bin"
       ln -s ${php.packages.composer}/bin/composer "$PROJECT_HOME/.php/bin"
       ln -s ${php.packages.phpstan}/bin/phpstan "$PROJECT_HOME/.php/bin"
-      ln -s ${nodejs}/bin/nodejs "$PROJECT_HOME/.node/bin"
+      ln -s ${pkgs.nodejs}/bin/nodejs "$PROJECT_HOME/.node/bin"
       ln -s ${pkgs.nodePackages.node-gyp}/bin/node-gyp "$PROJECT_HOME/.node/bin"
     fi
   '';

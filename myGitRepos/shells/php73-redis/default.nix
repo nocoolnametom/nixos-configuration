@@ -1,8 +1,14 @@
 with import <nixpkgs> { };
 
 let
+  pinned = {
+    phpPkgs = (import (fetchTarball
+      # Pinned to just before 7.3 support was dropped
+      "https://github.com/NixOS/nixpkgs/archive/68c650d0f4003285dfa4715ebd211e726b3ac964.tar.gz")
+      { }).pkgs;
+  };
   projectHome = builtins.toString ./.;
-  php = (pkgs.php73.withExtensions
+  php = (pinned.phpPkgs.php73.withExtensions
     ({ enabled, all }: with all; enabled ++ [ xdebug yaml redis ])).buildEnv {
       # extensions = e: with e; phpBase.enabledExtensions ++ [ xdebug yaml];
       extraConfig = ''
@@ -15,12 +21,12 @@ let
     };
 in pkgs.mkShell rec {
   # This is the list of packages used for this environment:
-  buildInputs = with pkgs; [
+  buildInputs = [
     php.packages.composer
     php.packages.phpstan
     php
-    redis
-    git
+    pkgs.redis
+    pkgs.git
   ];
 
   shellHook = ''
@@ -30,7 +36,7 @@ in pkgs.mkShell rec {
       [[ -e "$PROJECT_HOME/.git/info/exclude" && ! `grep "^\.php$" "$PROJECT_HOME/.git/info/exclude"` ]] && \
         echo ".php" >> "$PROJECT_HOME/.git/info/exclude"
       rm -Rf "$PROJECT_HOME/.php" && mkdir -p "$PROJECT_HOME/.php/bin"
-      ln -s ${redis}/bin/redis "$PROJECT_HOME/.php/bin"
+      ln -s ${pkgs.redis}/bin/redis "$PROJECT_HOME/.php/bin"
       ln -s ${php}/bin/php "$PROJECT_HOME/.php/bin"
       ln -s ${php.packages.composer}/bin/composer "$PROJECT_HOME/.php/bin"
       ln -s ${php.packages.phpstan}/bin/phpstan "$PROJECT_HOME/.php/bin"

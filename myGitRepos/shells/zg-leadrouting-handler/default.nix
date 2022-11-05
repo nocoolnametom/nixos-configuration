@@ -1,37 +1,18 @@
-with import <nixpkgs> {
-  overlays = [
-    (self: super: {
-      elasticmq-server = self.stdenv.mkDerivation rec {
-        name = "elasticmq-server-${version}";
-        version = "0.13.11";
-
-        src = self.fetchurl {
-          url =
-            "https://s3-eu-west-1.amazonaws.com/softwaremill-public/elasticmq-server-${version}.jar";
-          sha256 =
-            "ce13dc295a77feaa3d279a298c9049237eb2b3b58cb51a315ad27506fb2c2d49";
-        };
-
-        unpackPhase = ":";
-
-        buildInputs = [ self.jre self.makeWrapper ];
-
-        installPhase = ''
-          mkdir -p $out/{bin,lib}
-          install -D $src $out/lib/elasticmq-server.jar
-          makeWrapper ${self.jre}/bin/java $out/bin/elasticmq \
-            --add-flags "-Dconfig.file=${
-              ./.
-            }/config/app/dev/elasticmq.conf -jar $out/lib/elasticmq-server.jar"
-        '';
-      };
-    })
-  ];
-};
+with import <nixpkgs> { };
 
 let
+  pinned = {
+    elasticMqPkgs = (import (fetchTarball
+      # Pinned to elasticmq-server-bin-0.14.6
+      "https://github.com/NixOS/nixpkgs/archive/d8aee48e778a7d63d3782d389d4c67ba4a9187fb.tar.gz")
+      { }).pkgs;
+    phpPkgs = (import (fetchTarball
+      # Pinned to just before 7.4 support was dropped
+      "https://github.com/NixOS/nixpkgs/archive/ba45a559b5c42e123af07272b0241a73dcfa03b0.tar.gz")
+      { }).pkgs;
+  };
   projectHome = builtins.toString ./.;
-  php = (pkgs.php74.withExtensions ({ enabled, all }:
+  php = (pinned.phpPkgs.php74.withExtensions ({ enabled, all }:
     with all;
     enabled ++ [ xdebug memcached redis ])).buildEnv {
       # extensions = e: with e; phpBase.enabledExtensions ++ [ xdebug yaml redis ];
@@ -43,16 +24,17 @@ let
         xdebug.remote_autostart = 1
       '';
     };
+    elasticmq-server = pinned.elasticMqPkgs.elasticmq-server-bin;
 in pkgs.mkShell rec {
   # This is the list of packages used for this environment:
-  buildInputs = with pkgs; [
+  buildInputs = [
     php.packages.composer
     php.packages.phpstan
     php
     elasticmq-server
-    memcached
-    redis
-    git
+    pkgs.memcached
+    pkgs.redis
+    pkgs.git
   ];
 
   shellHook = ''
@@ -62,9 +44,9 @@ in pkgs.mkShell rec {
       [[ -e "$PROJECT_HOME/.git/info/exclude" && ! `grep "^\.php$" "$PROJECT_HOME/.git/info/exclude"` ]] && \
         echo ".php" >> "$PROJECT_HOME/.git/info/exclude"
       rm -Rf "$PROJECT_HOME/.php" && mkdir -p "$PROJECT_HOME/.php/bin"
-      ln -s ${redis}/bin/redis "$PROJECT_HOME/.php/bin"
+      ln -s ${pkgs.redis}/bin/redis-server "$PROJECT_HOME/.php/bin"
       ln -s ${elasticmq-server}/bin/elasticmq "$PROJECT_HOME/.php/bin"
-      ln -s ${memcached}/bin/memcached "$PROJECT_HOME/.php/bin"
+      ln -s ${pkgs.memcached}/bin/memcached "$PROJECT_HOME/.php/bin"
       ln -s ${php}/bin/php "$PROJECT_HOME/.php/bin"
       ln -s ${php.packages.composer}/bin/composer "$PROJECT_HOME/.php/bin"
       ln -s ${php.packages.phpstan}/bin/phpstan "$PROJECT_HOME/.php/bin"

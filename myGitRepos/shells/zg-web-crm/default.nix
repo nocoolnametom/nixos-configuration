@@ -1,8 +1,14 @@
 with import <nixpkgs> { };
 
 let
+  pinned = {
+    phpPkgs = (import (fetchTarball
+      # Pinned to just before 7.3 support was dropped
+      "https://github.com/NixOS/nixpkgs/archive/68c650d0f4003285dfa4715ebd211e726b3ac964.tar.gz")
+      { }).pkgs;
+  };
   projectHome = builtins.toString ./.;
-  php = (pkgs.php73.withExtensions
+  php = (pinned.phpPkgs.php73.withExtensions
     ({ enabled, all }: with all; enabled ++ [ xdebug yaml ])).buildEnv {
       # extensions = e: with e; phpBase.enabledExtensions ++ [ xdebug yaml];
       extraConfig = ''
@@ -15,19 +21,19 @@ let
     };
 in pkgs.mkShell rec {
   # This is the list of packages used for this environment:
-  buildInputs = with pkgs; [
-    git
-    cacert
-    docker
-    docker-compose
-    compass
-    ruby.devEnv
-    gnumake
+  buildInputs = [
+    pkgs.git
+    pkgs.cacert
+    pkgs.docker
+    pkgs.docker-compose
+    pkgs.compass
+    pkgs.ruby.devEnv
+    pkgs.gnumake
     php.packages.composer
     php.packages.phpstan
     php
-    nodejs
-    nodePackages.node-gyp
+    pkgs.nodejs
+    pkgs.nodePackages.node-gyp
   ];
 
   shellHook = ''
@@ -49,11 +55,11 @@ in pkgs.mkShell rec {
       ln -s ${php}/bin/php "$PROJECT_HOME/.php/bin"
       ln -s ${php.packages.composer}/bin/composer "$PROJECT_HOME/.php/bin"
       ln -s ${php.packages.phpstan}/bin/phpstan "$PROJECT_HOME/.php/bin"
-      ln -s ${nodejs}/bin/nodejs "$PROJECT_HOME/.node/bin"
+      ln -s ${pkgs.nodejs}/bin/nodejs "$PROJECT_HOME/.node/bin"
       ln -s ${pkgs.nodePackages.node-gyp}/bin/node-gyp "$PROJECT_HOME/.node/bin"
-      ln -s ${ruby}/bin/ruby "$PROJECT_HOME/.ruby/bin"
-      ln -s ${compass}/bin/compass "$PROJECT_HOME/.ruby/bin"
-      ln -s ${ruby.devEnv}/bin/bundle "$PROJECT_HOME/.ruby/bin"
+      ln -s ${pkgs.ruby}/bin/ruby "$PROJECT_HOME/.ruby/bin"
+      ln -s ${pkgs.compass}/bin/compass "$PROJECT_HOME/.ruby/bin"
+      ln -s ${pkgs.ruby.devEnv}/bin/bundle "$PROJECT_HOME/.ruby/bin"
     fi
   '';
 
