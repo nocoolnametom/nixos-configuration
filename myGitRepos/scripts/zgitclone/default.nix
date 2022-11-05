@@ -12,6 +12,7 @@ in pkgs.writeShellScriptBin "zgitclone" ''
   export SHOULD_BUILD=1
   export NIX_SHELL=""
   export MAKE_SHELL=0
+  export NIXPKGS_HASH=""
   script="${"$"}{0##*/}"
   while test $# -gt 0; do
   case "$1" in
@@ -27,6 +28,7 @@ in pkgs.writeShellScriptBin "zgitclone" ''
       echo "--no-build                do not run automatic dependency building"
       echo "-N, --nix-shell=<path>    path to a nix file to copy as shell.nix"
       echo "--make-shell=[0,1]        whether or not to build the shell environment"
+      echo "-z, --hash                hash for pinning nixpkgs"
       exit 0
       ;;
     -n)
@@ -41,6 +43,20 @@ in pkgs.writeShellScriptBin "zgitclone" ''
       ;;
     --name*)
       export NAME=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
+      ;;
+    -z)
+      shift
+      if test $# -gt 0; then
+        export NIXPKGS_HASH="$1"
+      else
+        echo "no hash specified"
+        exit 1
+      fi
+      shift
+      ;;
+    --hash*)
+      export NIXPKGS_HASH=`echo $1 | sed -e 's/^[^=]*=//g'`
       shift
       ;;
     -d)
@@ -139,8 +155,10 @@ in pkgs.writeShellScriptBin "zgitclone" ''
 
   if [[ ! -z "$NIX_SHELL" && -e "$NIX_SHELL" && ! -e ./shell.nix ]]; then
     cp "$NIX_SHELL" ./shell.nix
-    latestHash=`git ls-remote git://github.com/NixOS/nixpkgs.git | grep refs/heads/${nixpkgsChannel} | cut -f 1`
-    sed -i.bak "s~<nixpkgs>~(fetchTarball https://github.com/NixOS/nixpkgs/archive/$latestHash.tar.gz)~" shell.nix && rm -f shell.nix.bak
+    if [[ -z "$NIXPKGS_HASH" ]]; then
+      NIXPKGS_HASH=`git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/${nixpkgsChannel} | cut -f 1`
+    fi
+    sed -i.bak "s~<nixpkgs>~(fetchTarball https://github.com/NixOS/nixpkgs/archive/$NIXPKGS_HASH.tar.gz)~" shell.nix && rm -f shell.nix.bak
     sed -i.bak "s~my_overlay = import.*;~my_overlay = import ${
       toString ../../../overlays.nix
     };~" shell.nix && rm -f shell.nix.bak

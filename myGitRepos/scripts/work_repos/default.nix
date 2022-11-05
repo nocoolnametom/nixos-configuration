@@ -3,6 +3,7 @@
 , shells ? { }, workProjectList ? { }, ... }:
 
 let
+  nixpkgsChannel = "nixpkgs-unstable";
   buildProjectList = projectList:
     lib.concatStrings (lib.mapAttrsToList (directory: projects:
       lib.concatMapStrings (project:
@@ -20,10 +21,11 @@ let
         + (if lib.hasAttrByPath [ "build" ] project then
           (if project.build then "" else " --no-build")
         else
-          "") + " --make-shell=$SHOULD_BUILD" + " ${project.repo}" + "\n")
+          "") + " --hash=$NIXPKGS_HASH" + " --make-shell=$SHOULD_BUILD" + " ${project.repo}" + "\n")
       projects) projectList);
 in pkgs.writeShellScriptBin "work_repos" (''
   export SHOULD_BUILD=0
+  export NIXPKGS_HASH=""
 
   script="${"$"}{0##*/}"
   while test $# -gt 0; do
@@ -36,7 +38,22 @@ in pkgs.writeShellScriptBin "work_repos" (''
       echo "options:"
       echo "-h, --help       show brief help"
       echo "--build-shells   build all applicable Nix shells"
+      echo "-z, --hash       hash for pinning nixpkgs"
       exit 0
+      ;;
+    -z)
+      shift
+      if test $# -gt 0; then
+        export NIXPKGS_HASH="$1"
+      else
+        echo "no hash specified"
+        exit 1
+      fi
+      shift
+      ;;
+    --hash*)
+      export NIXPKGS_HASH=`echo $1 | sed -e 's/^[^=]*=//g'`
+      shift
       ;;
     --build-shells*)
       export SHOULD_BUILD=1
@@ -55,6 +72,11 @@ in pkgs.writeShellScriptBin "work_repos" (''
     # Remove listing of current work git repos
     if [ -e "$HOME/.local/share/workgits" ]; then
       rm "$HOME/.local/share/workgits"
+    fi
+
+    # Get current nixpkgs hash
+    if [ -z "$NIXPKGS_HASH" ]; then
+      NIXPKGS_HASH=`git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/${nixpkgsChannel} | cut -f 1`
     fi
 
     ${buildProjectList workProjectList}
