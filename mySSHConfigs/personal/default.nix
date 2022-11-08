@@ -45,6 +45,20 @@
     user = "root";
     port = 2222;
   };
+  glorfindel = {
+    host = "elrond";
+    hostname = "45.33.53.132";
+    identityFile = idRsa;
+    user = "tdoggett";
+    port = 2222;
+  };
+  "exmormon.social" = {
+    host = "exmormon.social";
+    hostname = "exmormon.social";
+    identityFile = idRsa;
+    user = "tdoggett";
+    port = 2222;
+  };
   bert = {
     host = "bert";
     hostname = "192.168.0.20";
